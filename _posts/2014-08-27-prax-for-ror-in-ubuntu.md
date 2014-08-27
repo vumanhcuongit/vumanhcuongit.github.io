@@ -2,7 +2,7 @@
 layout: post
 title: "Prax for ROR in Ubuntu"
 description: ""
-category: [Ruby on Rails]
+category: Ruby
 tags: []
 ---
 You know Prax ? if you don't, close this page and enjoy your life :) <br />

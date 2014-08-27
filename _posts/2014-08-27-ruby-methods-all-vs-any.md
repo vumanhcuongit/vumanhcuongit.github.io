@@ -2,7 +2,7 @@
 layout: post
 title: "Ruby methods: all? vs any?"
 description: ""
-category: [Ruby, Ruby on Rails]
+category: Ruby
 tags: []
 ---
 

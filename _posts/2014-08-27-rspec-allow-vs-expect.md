@@ -2,7 +2,7 @@
 layout: post
 title: "RSpec: allow vs expect"
 description: ""
-category: Ruby, Ruby on Rails
+category: Ruby
 tags: []
 ---
 
