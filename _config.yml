@@ -23,3 +23,9 @@ archive:
   path: /blog
   title: Blog Archive - :date
   exclude: ['projects']
+
+sitemap:
+  lastmod: 2014-08-26
+  priority: 0.7
+  changefreq: monthly
+  exclude: 'yes'
