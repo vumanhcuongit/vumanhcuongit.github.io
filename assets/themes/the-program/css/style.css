@@ -723,12 +723,12 @@ pre {
 .unit-article li code {
   padding: 2px 5px;
   white-space: nowrap;
-  background-color: #fff04a;
+  background-color: #f5f2f0;
 }
 .unit-article img {
   display: block;
-  margin-left: auto;
-  margin-left: auto;
+ /* margin-left: auto;
+  margin-left: auto;*/
 }
 .unit-article img.left {
   margin-right: 16px;
