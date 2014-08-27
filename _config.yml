@@ -1,0 +1,25 @@
+# Site settings
+title: Mido
+email: cuongvu0103@gmail.com
+author:
+  name: Cuong Vu
+  nickname: Mido
+  email: cuongvu0103@gmail.com
+  github: vumanhcuongit
+  twitter: vumanhcuongit
+description: "Stay hungry, Stay foolish."
+baseurl: ""
+url: "http://vumanhcuongit.github.io"
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+paginate: 5
+
+gems: ['jekyll/itafroma/archive']
+
+archive:
+  layout: archive
+  path: /blog
+  title: Blog Archive - :date
+  exclude: ['projects']
