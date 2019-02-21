@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Take a screenshot any time Cucumber's scenario failed on CircleCI</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="blog, vumanhcuong, mido, jekyll">
+    <meta name="author" content="vumanhcuong">
+    
+    
+    
+
+    <meta name="description" content="A minimal jekyll theme">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+    <link rel="shortcut-icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+
+    <!-- For Facebook -->
+    <meta property="og:title" content="Take a screenshot any time Cucumber's scenario failed on CircleCI" />
+    <meta property="og:image" content="http://localhost:4000/assets/favicon.ico" />
+    <meta property="og:description" content="A minimal jekyll theme" />
+
+    <!-- For Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Take a screenshot any time Cucumber's scenario failed on CircleCI" />
+    <meta name="twitter:description" content="A minimal jekyll theme" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/favicon.ico" />
+</head>
+
+
+<body>
+    <div class="wrapper">
+        <div class="navbar container">
+    <a id="site-title" class="alignable pull-left" href="http://localhost:4000">mido</a>
+    <ul id="navlist" class="alignable pull-right navbar-ul">
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/about">About</a>
+            /
+        </li>
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/resume.pdf">Resume</a>
+            
+        </li>
+        
+    </ul>
+</div>
+<div style="clear:both"></div>
+
+<hr>
+
+        <div class="page-title">
+            Take a screenshot any time Cucumber's scenario failed on CircleCI
+        </div>
+        <div class="container">
+            <div class="content">
+                <div class="page-subtitle">
+    
+        
+            <b>[</b>
+        
+        <a href="/tags/#cucumber" title="cucumber">cucumber</a>
+        
+            -
+        
+    
+        
+        <a href="/tags/#screenshot" title="screenshot">screenshot</a>
+        
+            -
+        
+    
+        
+        <a href="/tags/#circleci" title="circleci">circleci</a>
+        
+            <b>]</b>
+        
+    
+</div>
+<br>
+<blockquote>
+  <p>I used to spend hours on debugging Cucumber’s tests on CircleCI but now I do well.</p>
+</blockquote>
+
+<p>My company uses <a href="https://cucumber.io/">Cucumber</a> and Selenium for running acceptance tests. Whenever one of scenarios is not passed on CircleCI, we’ll run it on the local computer to fix it (ya I know developer’s life is too short to wait for running all tests completely on local computer :yaoming:). However, last month when we ran failed scenarios on local computer, they passed without any errors. It’s so weird!</p>
+
+<p>As it turns out, running Cucumber’s tests in local mode is very different from Continuous Integration mode. Therefore, I needed to know what the hell was happening with Cucumber’s tests on CircleCI. To spot the cause of failing tests easier, I would like to get screenshot of current webpage any time a scenario fails.</p>
+
+<p>I add some code in <a href="https://github.com/cucumber/cucumber/wiki/Hooks">After hooks</a> to tell Cucumber to take a screenshot when a scenario fails.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># features/support/env.rb</span>
+
+<span class="no">After</span> <span class="k">do</span> <span class="o">|</span><span class="n">scenario</span><span class="o">|</span>
+  <span class="k">if</span> <span class="n">scenario</span><span class="p">.</span><span class="nf">failed?</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="s2">"</span><span class="si">#{</span><span class="no">Time</span><span class="p">.</span><span class="nf">zone</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">strftime</span><span class="p">(</span><span class="s1">'%Y-%m-%d-%H:%M:%S'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">screenshot_name</span> <span class="o">=</span> <span class="s2">"screenshot-</span><span class="si">#{</span><span class="n">scenario</span><span class="p">.</span><span class="nf">title</span><span class="si">}</span><span class="s2">-</span><span class="si">#{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">.png"</span>
+    <span class="n">screenshot_path</span> <span class="o">=</span> <span class="s2">"</span><span class="si">#{</span><span class="no">Rails</span><span class="p">.</span><span class="nf">root</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'tmp/capybara'</span><span class="p">)</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="n">screenshot_name</span><span class="si">}</span><span class="s2">"</span>
+    <span class="no">Capybara</span><span class="p">.</span><span class="nf">page</span><span class="p">.</span><span class="nf">save_screenshot</span><span class="p">(</span><span class="n">screenshot_path</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Now when a test fails, I can see a screenshot appear in the specified directory</p>
+
+<p><img src="http://s13.postimg.org/4pfmwcezb/Screen_Shot_2016_01_26_at_4_35_07_PM.png" alt="screenshot in development mode" /></p>
+
+<p>Well, That’s it.</p>
+
+<p>Hold on, have I said that I need screenshots on CircleCI?</p>
+
+<p>Fortunately, CircleCI provides <a href="http://blog.circleci.com/build-artifacts/"><strong>$CIRCLE_ARTIFACTS</strong></a> folder, in which we can write files and it will show all files in this folder after build is finished. I’ll update the code a little bit so I can store and open screenshots at <strong>$CIRCLE_ARTIFACTS</strong>.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># features/support/env.rb</span>
+
+<span class="no">After</span> <span class="k">do</span> <span class="o">|</span><span class="n">scenario</span><span class="o">|</span>
+  <span class="k">if</span> <span class="n">scenario</span><span class="p">.</span><span class="nf">failed?</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="s2">"</span><span class="si">#{</span><span class="no">Time</span><span class="p">.</span><span class="nf">zone</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">strftime</span><span class="p">(</span><span class="s1">'%Y-%m-%d-%H:%M:%S'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">screenshot_name</span> <span class="o">=</span> <span class="s2">"screenshot-</span><span class="si">#{</span><span class="n">scenario</span><span class="p">.</span><span class="nf">title</span><span class="si">}</span><span class="s2">-</span><span class="si">#{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">.png"</span>
+    <span class="n">screenshot_path</span> <span class="o">=</span> <span class="s2">"</span><span class="si">#{</span><span class="no">ENV</span><span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="s1">'CIRCLE_ARTIFACTS'</span><span class="p">,</span> <span class="no">Rails</span><span class="p">.</span><span class="nf">root</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'tmp/capybara'</span><span class="p">))</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="n">screenshot_name</span><span class="si">}</span><span class="s2">"</span>
+    <span class="no">Capybara</span><span class="p">.</span><span class="nf">page</span><span class="p">.</span><span class="nf">save_screenshot</span><span class="p">(</span><span class="n">screenshot_path</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>The trick is that using <a href="http://ruby-doc.org/core-2.3.0/Hash.html#method-i-fetch">fetch (Hash)</a> to get the directory of <strong>$CIRCLE_ARTIFACTS</strong> by <strong>ENV[“CIRCLE_ARTIFACTS”]</strong> whose value provided by CirceCI. In the other hand, if we’re running tests in developement mode or value of <strong>ENV[“CIRCLE_ARTIFACTS”]</strong> is empty, screenshots will be stored in <em>tmp/capybara</em>.</p>
+
+<p>After the build is finished, we can see screenshots on tab <strong>Artifacts</strong>.</p>
+
+<p><img src="http://s27.postimg.org/5czg9bpur/screenshot_on_Circle_CI.png" alt="screenshot in CircleCI" /></p>
+
+<p>Hope, you will save a lot of time debugging. Happy hacking!</p>
+
+
+            </div>
+            <div class="footer">
+                <div class="footer">
+    <br><hr>
+    <a href="https://github.com/pro-panda" style="color: black">Theme by pro-panda</a>
+</div>
+
+            </div>
+        </div>
+    </div>
+</body>

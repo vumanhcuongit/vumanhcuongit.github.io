@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Neo4j and Rails, Part 1 of 2: How to setup an application and deploy it to Heroku</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="blog, vumanhcuong, mido, jekyll">
+    <meta name="author" content="vumanhcuong">
+    
+    
+    
+
+    <meta name="description" content="A minimal jekyll theme">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+    <link rel="shortcut-icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+
+    <!-- For Facebook -->
+    <meta property="og:title" content="Neo4j and Rails, Part 1 of 2: How to setup an application and deploy it to Heroku" />
+    <meta property="og:image" content="http://localhost:4000/assets/favicon.ico" />
+    <meta property="og:description" content="A minimal jekyll theme" />
+
+    <!-- For Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Neo4j and Rails, Part 1 of 2: How to setup an application and deploy it to Heroku" />
+    <meta name="twitter:description" content="A minimal jekyll theme" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/favicon.ico" />
+</head>
+
+
+<body>
+    <div class="wrapper">
+        <div class="navbar container">
+    <a id="site-title" class="alignable pull-left" href="http://localhost:4000">mido</a>
+    <ul id="navlist" class="alignable pull-right navbar-ul">
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/about">About</a>
+            /
+        </li>
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/resume.pdf">Resume</a>
+            
+        </li>
+        
+    </ul>
+</div>
+<div style="clear:both"></div>
+
+<hr>
+
+        <div class="page-title">
+            Neo4j and Rails, Part 1 of 2: How to setup an application and deploy it to Heroku
+        </div>
+        <div class="container">
+            <div class="content">
+                <div class="page-subtitle">
+    
+        
+            <b>[</b>
+        
+        <a href="/tags/#neo4j" title="neo4j">neo4j</a>
+        
+            -
+        
+    
+        
+        <a href="/tags/#rails" title="rails">rails</a>
+        
+            <b>]</b>
+        
+    
+</div>
+<br>
+<iframe width="50%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/92895430"></iframe>
+
+<p>This past week, I had a chance to use Graph Database (<a href="http://www.neo4j.org/">Neo4j</a>) with Rails. At the first time, I felt hard to set up as well as apply Neo4j in Rails application. So I write this tutorial to share my experience that may help you through bad days ~<em>yaoming</em>~.</p>
+
+<p>According to my plan, I’ll write 2 parts:</p>
+
+<ul>
+  <li>How to setup an application and deploy it to Heroku.</li>
+  <li>How to declare relationships and write query in Neo4j.</li>
+</ul>
+
+<h2 id="part-1-how-to-setup-an-application-and-deploy-it-to-heroku">Part 1: How to setup an application and deploy it to Heroku</h2>
+
+<h2 id="setup-neo4j">Setup Neo4j</h2>
+
+<p>First things first, we need to install Neo4j on our computer. This is a <a href="http://neo4j.com/download/">link</a> to download Neo4j. We can run this command to check if it successfully installed:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$ </span>neo4j <span class="nb">start</span></code></pre></figure>
+
+<p>Now, we can check out <code class="highlighter-rouge">http://localhost:7474</code>. If it’s installed successfully, it displays like this:</p>
+
+<p><img src="http://s7.postimg.org/mar3rbvcr/neo4j_browser.png" alt="Neo4j Browser" /></p>
+
+<p>Now, we create rails app for demo purpose:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$ </span>rails new neo4j_playground</code></pre></figure>
+
+<p>And then, we inlucde neo4j gem in this <code class="highlighter-rouge">Gemfile</code>:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="s1">'neo4j'</span><span class="p">,</span> <span class="ss">github: </span><span class="s1">'andreasronge/neo4j'</span></code></pre></figure>
+
+<p>When we <code class="highlighter-rouge">bundle</code>, it should n’t get errors. After that, we create a controller, model and views:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell">rails generate scaffold Contact name:string email:string</code></pre></figure>
+
+<p>Now, we’re going to use model the Neo4j way, not ActiveModel way. Let’s replace model with this below code:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Contact</span>
+  <span class="kp">include</span> <span class="no">Neo4j</span><span class="o">::</span><span class="no">ActiveNode</span>
+
+  <span class="n">property</span> <span class="ss">:name</span>
+  <span class="n">property</span> <span class="ss">:email</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>You should notice that this model doesn’t inherit from ActiveRecord::Base as usual. Instead, we include this thing called <code class="highlighter-rouge">Neo4j::ActiveNode</code> which is the ActiveRecord replacement module for Rails.</p>
+
+<p>We don’t use <code class="highlighter-rouge">ActiveRecord</code> so we don’t run any migrations either. Let’s delete <code class="highlighter-rouge">db/migrate</code> folder.</p>
+
+<p>Go to <code class="highlighter-rouge">config/application.rb</code> and use this code:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="no">File</span><span class="p">.</span><span class="nf">expand_path</span><span class="p">(</span><span class="s1">'../boot'</span><span class="p">,</span> <span class="kp">__FILE__</span><span class="p">)</span>
+
+<span class="nb">require</span> <span class="s2">"rails"</span>
+
+<span class="sx">%w(
+  neo4j
+  action_controller
+  action_mailer
+  sprockets
+)</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">framework</span><span class="o">|</span>
+  <span class="k">begin</span>
+    <span class="nb">require</span> <span class="s2">"</span><span class="si">#{</span><span class="n">framework</span><span class="si">}</span><span class="s2">/railtie"</span>
+  <span class="k">rescue</span> <span class="no">LoadError</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">Bundler</span><span class="p">.</span><span class="nf">require</span><span class="p">(</span><span class="o">*</span><span class="no">Rails</span><span class="p">.</span><span class="nf">groups</span><span class="p">)</span>
+
+<span class="k">module</span> <span class="nn">Neo4jPlayground</span>
+  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Application</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">generators</span> <span class="k">do</span> <span class="o">|</span><span class="n">g</span><span class="o">|</span>
+      <span class="n">g</span><span class="p">.</span><span class="nf">orm</span> <span class="ss">:neo4j</span>
+    <span class="k">end</span>
+
+    <span class="n">config</span><span class="p">.</span><span class="nf">neo4j</span><span class="p">.</span><span class="nf">session_type</span> <span class="o">=</span> <span class="ss">:server_db</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">neo4j</span><span class="p">.</span><span class="nf">session_path</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s1">'GRAPHENEDB_URL'</span><span class="p">]</span> <span class="o">||</span> <span class="s1">'http://localhost:7474'</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Alright, we no longer use <code class="highlighter-rouge">require "rails/all"</code> and use <code class="highlighter-rouge">%w( ... ).each { ... }</code> instead. Because <code class="highlighter-rouge">rails/all</code> loads five modules. Rails, ActiveRecord, ActionController, ActionMailer, and Sprockets but as I mentioned, we don’t need <em>ActiveRecord</em>, so we replace <code class="highlighter-rouge">active_record</code> with <code class="highlighter-rouge">neo4j</code>.</p>
+
+<p>Look inside <code class="highlighter-rouge">Neo4j::Application</code>, you’ll see it using some neo4j configuation methods:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">session_type</code> we have two ways to install Neo4j <code class="highlighter-rouge">:server_db</code> and <code class="highlighter-rouge">:embeddable_db</code>. <a href="https://github.com/neo4jrb/neo4j-core/wiki#installation">Read More</a>.</li>
+  <li><code class="highlighter-rouge">session_path</code> is the location of our database. If we’re on Heroku, we’ll be using <code class="highlighter-rouge">GrapheneDB</code>, but we hook up to <code class="highlighter-rouge">http://localhost:7474</code> if we’re on development/test.</li>
+</ul>
+
+<p>Well, We did a lot of things. To complete <strong>Setup Neo4j</strong> section, we’ll configure some things.</p>
+
+<p>We comment some code lines:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">config</span><span class="o">/</span><span class="n">environments</span><span class="o">/</span><span class="n">development</span><span class="p">.</span><span class="nf">rb</span>
+<span class="c1"># config.active_record.migration_error = :page_load</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">config</span><span class="o">/</span><span class="n">environments</span><span class="o">/</span><span class="n">production</span><span class="p">.</span><span class="nf">rb</span>
+<span class="c1">#config.active_record.dump_schema_after_migration = false</span></code></pre></figure>
+
+<p>Within the <code class="highlighter-rouge">Rakefile</code>, add this line:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">'neo4j/tasks/neo4j_server'</span></code></pre></figure>
+
+<p>Now <code class="highlighter-rouge">rails s</code> and it works ~<em>bravo</em>~. Now you can use <strong>CRUD</strong> for <em>Contact object</em>.</p>
+
+<h2 id="deploy-application-to-heroku">Deploy application to Heroku</h2>
+
+<p>Well done, Let’s deploy to Heroku:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$ </span>git init
+<span class="nv">$ </span>git add <span class="nb">.</span>
+<span class="nv">$ </span>git commit -m <span class="s2">"initial commit"</span>
+<span class="nv">$ </span>heroku create
+<span class="nv">$ </span>git push heroku master</code></pre></figure>
+
+<p>Then, you’ll get … this error:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell">Preparing app <span class="k">for </span>Rails asset pipeline
+Running: rake assets:precompile
+rake aborted!
+Errno::ECONNREFUSED: Connection refused - connect<span class="o">(</span>2<span class="o">)</span> <span class="k">for</span> <span class="s2">"localhost"</span> port 7474</code></pre></figure>
+
+<p>If you get it, you’re on the right way :). Because we store database in <code class="highlighter-rouge">http://localhost:7474</code> on development. However, on production, we need to use <code class="highlighter-rouge">GrapheneDB</code> instead. So we set up our Graph Database:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$ </span>heroku addons:add graphenedb:chalk</code></pre></figure>
+
+<p>Notice: <em>chalk</em> is a free package. <a href="https://addons.heroku.com/graphenedb">Read More</a></p>
+
+<p>Let’s push to production again:</p>
+
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$ </span>git push heroku master</code></pre></figure>
+
+<p>Wow, we deploy it sucessfully !. You’re the nice guy because you’re so … patient :)</p>
+
+<p><img src="http://s17.postimg.org/njccrvp9r/Pissed_Tobey_Maguire.jpg" alt="Patient" /></p>
+
+
+            </div>
+            <div class="footer">
+                <div class="footer">
+    <br><hr>
+    <a href="https://github.com/pro-panda" style="color: black">Theme by pro-panda</a>
+</div>
+
+            </div>
+        </div>
+    </div>
+</body>

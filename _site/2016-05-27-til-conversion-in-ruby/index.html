@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>[TIL] #1 Chuyển đổi kiểu dữ liệu tường minh và không tường minh trong Ruby</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="blog, vumanhcuong, mido, jekyll">
+    <meta name="author" content="vumanhcuong">
+    
+    
+    
+
+    <meta name="description" content="A minimal jekyll theme">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+    <link rel="shortcut-icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+
+    <!-- For Facebook -->
+    <meta property="og:title" content="[TIL] #1 Chuyển đổi kiểu dữ liệu tường minh và không tường minh trong Ruby" />
+    <meta property="og:image" content="http://localhost:4000/assets/favicon.ico" />
+    <meta property="og:description" content="A minimal jekyll theme" />
+
+    <!-- For Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="[TIL] #1 Chuyển đổi kiểu dữ liệu tường minh và không tường minh trong Ruby" />
+    <meta name="twitter:description" content="A minimal jekyll theme" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/favicon.ico" />
+</head>
+
+
+<body>
+    <div class="wrapper">
+        <div class="navbar container">
+    <a id="site-title" class="alignable pull-left" href="http://localhost:4000">mido</a>
+    <ul id="navlist" class="alignable pull-right navbar-ul">
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/about">About</a>
+            /
+        </li>
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/resume.pdf">Resume</a>
+            
+        </li>
+        
+    </ul>
+</div>
+<div style="clear:both"></div>
+
+<hr>
+
+        <div class="page-title">
+            [TIL] #1 Chuyển đổi kiểu dữ liệu tường minh và không tường minh trong Ruby
+        </div>
+        <div class="container">
+            <div class="content">
+                <div class="page-subtitle">
+    
+        
+            <b>[</b>
+        
+        <a href="/tags/#til" title="til">til</a>
+        
+            -
+        
+    
+        
+        <a href="/tags/#ruby" title="ruby">ruby</a>
+        
+            <b>]</b>
+        
+    
+</div>
+<br>
+<p><em>chú thích thuật ngữ</em></p>
+
+<ul>
+  <li>explicit: tường minh</li>
+  <li>implicit: không tường minh</li>
+  <li>conversion: chuyển đổi kiểu dữ liệu</li>
+  <li>target class: kiểu class mà mình muốn chuyển đổi về</li>
+  <li>runtime: thời điểm thực thi dòng lệnh</li>
+  <li>string interpolation: chuỗi nội suy</li>
+</ul>
+
+<h3 id="một-số-hàm-chuyển-đổi-trong-ruby">Một số hàm chuyển đổi trong Ruby</h3>
+
+<p><img src="http://s33.postimg.org/7n6c02wsf/Screen_Shot_2016_05_27_at_9_09_19_PM.png" alt="conversion table" /></p>
+
+<h3 id="hàm-chuyển-đổi-tường-minh">Hàm chuyển đổi tường minh</h3>
+<ul>
+  <li>Chuyển đổi một đối tượng có kiểu dữ liệu hoàn toàn khác với target class.</li>
+  <li>Ruby sẽ <strong>không tự động</strong> gọi các hàm này trong lúc thực thi dòng lệnh. Chỉ có một ngoại lệ với <em>chuỗi nội suy</em>.</li>
+</ul>
+
+<p>Ví dụ:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="s2">"123"</span><span class="p">.</span><span class="nf">to_i</span> <span class="c1"># bạn nói với Ruby rằng hãy chạy lệnh #to_i</span>
+
+<span class="s2">"The time is now: </span><span class="si">#{</span><span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="si">}</span><span class="s2">"</span> <span class="c1"># trường hợp ngoại lệ</span></code></pre></figure>
+
+<h3 id="hàm-chuyển-đổi-không-tường-minh">Hàm chuyển đổi không tường minh</h3>
+<ul>
+  <li>Chuyển đổi một đối tượng có kiểu dữ liệu tương đồng với target class.</li>
+  <li>Ruby sẽ <strong>tự động</strong> gọi các hàm này (ví dụ #to_str, #to_ary)  để đảm bảo rằng đối tượng cần chuyển đổi có cùng kiểu với target class.</li>
+</ul>
+
+<p>Ví dụ:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Foo</span>
+ <span class="k">def</span> <span class="nf">to_str</span>
+  <span class="s2">"Foo"</span>
+ <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Bar</span><span class="p">;</span> <span class="k">end</span>
+
+<span class="s2">"Hello "</span> <span class="o">+</span> <span class="no">Foo</span><span class="p">.</span><span class="nf">new</span>
+<span class="o">=&gt;</span> <span class="s2">"Hello Foo"</span>
+
+<span class="s2">"Hello "</span> <span class="o">+</span> <span class="no">Bar</span><span class="p">.</span><span class="nf">new</span>
+<span class="o">=&gt;</span> <span class="no">TypeError</span><span class="p">:</span> <span class="n">no</span> <span class="n">implicit</span> <span class="n">conversion</span> <span class="n">of</span> <span class="no">Bar</span> <span class="n">into</span> <span class="no">String</span></code></pre></figure>
+
+<h3 id="khi-nào-nên-dùng">Khi nào nên dùng?</h3>
+
+<ul>
+  <li>Nếu không cần quan tâm kiểu dữ liệu trước đó của parameter là gì thì dùng kiểu chuyển đổi tường minh.</li>
+</ul>
+
+<p>Ví dụ:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">display_number</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+ <span class="n">number</span> <span class="o">=</span> <span class="n">number</span><span class="p">.</span><span class="nf">to_i</span>
+ <span class="nb">puts</span> <span class="s2">"It is </span><span class="si">#{</span><span class="n">number</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="n">display_number</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="no">It</span> <span class="n">is</span> <span class="mi">1</span>
+
+<span class="n">display_number</span><span class="p">(</span><span class="s2">"2"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="no">It</span> <span class="n">is</span> <span class="mi">2</span></code></pre></figure>
+
+<ul>
+  <li>Nếu muốn kiểm soát chặt chẽ kiểu dữ liệu trước đó của parameter thì dùng kiểu chuyển đổi không tường minh.</li>
+</ul>
+
+<p>Ví dụ:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">display_number</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+ <span class="n">number</span> <span class="o">=</span> <span class="n">number</span><span class="p">.</span><span class="nf">to_int</span>
+ <span class="nb">puts</span> <span class="s2">"It is </span><span class="si">#{</span><span class="n">number</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="n">display_number</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="no">It</span> <span class="n">is</span> <span class="mi">1</span>
+
+<span class="n">display_number</span><span class="p">(</span><span class="s2">"2"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="no">NoMethodError</span><span class="p">:</span> <span class="n">undefined</span> <span class="nb">method</span> <span class="s1">'to_int'</span> <span class="k">for</span> <span class="s2">"2"</span><span class="ss">:String</span></code></pre></figure>
+
+<p>Happy coding!</p>
+
+<p>p/s: bài đầu tiên mở màn cho topic Today I Learned [TIL]</p>
+
+
+            </div>
+            <div class="footer">
+                <div class="footer">
+    <br><hr>
+    <a href="https://github.com/pro-panda" style="color: black">Theme by pro-panda</a>
+</div>
+
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>How to truncate a string that's Markdown format</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="blog, vumanhcuong, mido, jekyll">
+    <meta name="author" content="vumanhcuong">
+    
+    
+    
+
+    <meta name="description" content="A minimal jekyll theme">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+    <link rel="shortcut-icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+
+    <!-- For Facebook -->
+    <meta property="og:title" content="How to truncate a string that's Markdown format" />
+    <meta property="og:image" content="http://localhost:4000/assets/favicon.ico" />
+    <meta property="og:description" content="A minimal jekyll theme" />
+
+    <!-- For Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="How to truncate a string that's Markdown format" />
+    <meta name="twitter:description" content="A minimal jekyll theme" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/favicon.ico" />
+</head>
+
+
+<body>
+    <div class="wrapper">
+        <div class="navbar container">
+    <a id="site-title" class="alignable pull-left" href="http://localhost:4000">mido</a>
+    <ul id="navlist" class="alignable pull-right navbar-ul">
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/about">About</a>
+            /
+        </li>
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/resume.pdf">Resume</a>
+            
+        </li>
+        
+    </ul>
+</div>
+<div style="clear:both"></div>
+
+<hr>
+
+        <div class="page-title">
+            How to truncate a string that's Markdown format
+        </div>
+        <div class="container">
+            <div class="content">
+                <div class="page-subtitle">
+    
+        
+            <b>[</b>
+        
+        <a href="/tags/#markdown" title="markdown">markdown</a>
+        
+            <b>]</b>
+        
+    
+</div>
+<br>
+<p>Regarding this <a href="https://coderwall.com/p/nzrqva?i=2&amp;p=1&amp;q=author%3Avumanhcuongit&amp;t%5B%5D=vumanhcuongit">Markdown tip</a>. Today, I got a trouble about truncating  string written in Markdown format.</p>
+
+<p>Firstly, I just used <code class="highlighter-rouge">truncate(markdown(text), length: 100)</code> but it doesn’t work well.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;h1&gt;</span>An h1 header<span class="nt">&lt;/h1&gt;</span> <span class="nt">&lt;p&gt;</span>Paragraphs are separated by a blank line.<span class="nt">&lt;/p&gt;</span> <span class="nt">&lt;p&gt;</span>2nd paragraph. <span class="nt">&lt;em&gt;</span>It...</code></pre></figure>
+
+<p>Finally, I tried this one and it works :)</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">truncate</span><span class="p">(</span><span class="n">markdown</span><span class="p">(</span><span class="n">item</span><span class="p">.</span><span class="nf">description</span><span class="p">),</span> <span class="ss">length: </span><span class="mi">100</span><span class="p">,</span> <span class="ss">escape: </span><span class="kp">false</span><span class="p">)</span></code></pre></figure>
+
+
+
+            </div>
+            <div class="footer">
+                <div class="footer">
+    <br><hr>
+    <a href="https://github.com/pro-panda" style="color: black">Theme by pro-panda</a>
+</div>
+
+            </div>
+        </div>
+    </div>
+</body>

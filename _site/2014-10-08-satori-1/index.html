@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Satori #1</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="blog, vumanhcuong, mido, jekyll">
+    <meta name="author" content="vumanhcuong">
+    
+    
+    
+
+    <meta name="description" content="A minimal jekyll theme">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+    <link rel="shortcut-icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+
+    <!-- For Facebook -->
+    <meta property="og:title" content="Satori #1" />
+    <meta property="og:image" content="http://localhost:4000/assets/favicon.ico" />
+    <meta property="og:description" content="A minimal jekyll theme" />
+
+    <!-- For Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Satori #1" />
+    <meta name="twitter:description" content="A minimal jekyll theme" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/favicon.ico" />
+</head>
+
+
+<body>
+    <div class="wrapper">
+        <div class="navbar container">
+    <a id="site-title" class="alignable pull-left" href="http://localhost:4000">mido</a>
+    <ul id="navlist" class="alignable pull-right navbar-ul">
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/about">About</a>
+            /
+        </li>
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/resume.pdf">Resume</a>
+            
+        </li>
+        
+    </ul>
+</div>
+<div style="clear:both"></div>
+
+<hr>
+
+        <div class="page-title">
+            Satori #1
+        </div>
+        <div class="container">
+            <div class="content">
+                <div class="page-subtitle">
+    
+        
+            <b>[</b>
+        
+        <a href="/tags/#ruby" title="ruby">ruby</a>
+        
+            -
+        
+    
+        
+        <a href="/tags/#satori" title="satori">satori</a>
+        
+            <b>]</b>
+        
+    
+</div>
+<br>
+<iframe width="50%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/131135626"></iframe>
+
+<p>Today, I have an idea to open a category named <em>Satori</em>. In this category, I’d like to share my misconception about Ruby language as well as awakening after that. So this is the first <em>Satori</em>.</p>
+
+<blockquote>
+  <p>The journey of a thousand miles begins with a single step.</p>
+</blockquote>
+
+<p>Actually, you know that <em>Ruby returns the last evaluated expression</em>. Yesterday, I got a mistake about this and I want to show off it ~<em>yaoming</em>~.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">my_mistake</span><span class="p">(</span><span class="n">number</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="s1">'First line'</span> <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">1</span>
+  <span class="s1">'Second line'</span> <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>I thought this method would return “First line”, but I got wrong. As it turns out, it returns <code class="highlighter-rouge">nil</code>.</p>
+
+<p><strong>Misconception:</strong> I thought it doesn’t execute code if the conditional is false.</p>
+
+<p><strong>Awakening:</strong> The last line returns <code class="highlighter-rouge">nil</code>, so “First line” need to return immediately if the conditional is true. I solve it by this:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">my_mistake</span><span class="p">(</span><span class="n">number</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="k">return</span> <span class="s1">'First line'</span> <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">1</span>
+  <span class="s1">'Second line'</span> <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="k">end</span></code></pre></figure>
+
+<p><strong>updated 2014-11-07</strong></p>
+
+<p>I’ve got this case and maybe you’d like to know:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">my_logger</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+  <span class="n">number</span>
+  <span class="no">Rails</span><span class="p">.</span><span class="nf">logger</span><span class="p">.</span><span class="nf">info</span> <span class="s2">"Hey! I make your function work wrong."</span>
+<span class="k">end</span>
+
+<span class="n">my_logger</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1">#=&gt; true</span></code></pre></figure>
+
+<p>That’s enough for my first <em>Satori</em> and thanks for your concern. If you have any questions, please don’t hesitate to discuss with me :).</p>
+
+
+
+            </div>
+            <div class="footer">
+                <div class="footer">
+    <br><hr>
+    <a href="https://github.com/pro-panda" style="color: black">Theme by pro-panda</a>
+</div>
+
+            </div>
+        </div>
+    </div>
+</body>

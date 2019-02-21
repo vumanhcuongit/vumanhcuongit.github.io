@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Tôi biết cái tôi muốn và tôi tin chắc bạn sẽ làm được</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="blog, vumanhcuong, mido, jekyll">
+    <meta name="author" content="vumanhcuong">
+    
+    
+    
+
+    <meta name="description" content="A minimal jekyll theme">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+    <link rel="shortcut-icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+
+    <!-- For Facebook -->
+    <meta property="og:title" content="Tôi biết cái tôi muốn và tôi tin chắc bạn sẽ làm được" />
+    <meta property="og:image" content="http://localhost:4000/assets/favicon.ico" />
+    <meta property="og:description" content="A minimal jekyll theme" />
+
+    <!-- For Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Tôi biết cái tôi muốn và tôi tin chắc bạn sẽ làm được" />
+    <meta name="twitter:description" content="A minimal jekyll theme" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/favicon.ico" />
+</head>
+
+
+<body>
+    <div class="wrapper">
+        <div class="navbar container">
+    <a id="site-title" class="alignable pull-left" href="http://localhost:4000">mido</a>
+    <ul id="navlist" class="alignable pull-right navbar-ul">
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/about">About</a>
+            /
+        </li>
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/resume.pdf">Resume</a>
+            
+        </li>
+        
+    </ul>
+</div>
+<div style="clear:both"></div>
+
+<hr>
+
+        <div class="page-title">
+            Tôi biết cái tôi muốn và tôi tin chắc bạn sẽ làm được
+        </div>
+        <div class="container">
+            <div class="content">
+                <div class="page-subtitle">
+    
+        
+            <b>[</b>
+        
+        <a href="/tags/#code review" title="code review">code review</a>
+        
+            -
+        
+    
+        
+        <a href="/tags/#ruby" title="ruby">ruby</a>
+        
+            <b>]</b>
+        
+    
+</div>
+<br>
+<blockquote>
+  <p>“I know what I want and I trust you to do your part.” - Sandi Metz</p>
+</blockquote>
+
+<p>Hôm nay mình muốn giới thiệu bí quyết trên của <a href="http://www.sandimetz.com/">Sandi Metz</a>, một tác giả yêu thích của mình về các vấn đề liên quan tới OOP. Mình thật sự ấn tượng  với nó vì chỉ một câu ngắn gọn thôi cũng đủ để xem là kim chỉ nam trong việc thiết kế các <em>class</em>.</p>
+
+<h2 id="sự-giao-tiếp-giữa-các-đối-tượng-với-nhau">Sự giao tiếp giữa các đối tượng với nhau</h2>
+<blockquote>
+  <p>“Object-oriented applications are made up of objects and the messages that pass between them” - Sandi Metz</p>
+</blockquote>
+
+<p>Trong lập trình hướng đối tượng, mỗi class được dùng để mô hình hoá một thực thể trong thế giới thực. Mỗi đối tượng thuộc về một class sẽ có các thuộc tính và cách ứng xử (behaviour) giống nhau, các cách ứng xử này được định nghĩa bởi các method. Các đối tượng giao tiếp với nhau bằng việc gửi đi những thông điệp(message): một đối tượng sẽ thực hiện những công việc khi nhận được một thông điệp thích hợp từ một đối tượng khác ~ gọi hàm của một đối tượng khác.</p>
+
+<p>Để giao tiếp tốt với nhau, một đối tượng phải hiểu biết đối tượng kia (tên hàm, business logic,…), điều này dẫn đến việc lệ thuộc lẫn nhau. Càng hiểu biết nhiều thì sự lệ thuộc càng nhiều, việc này sẽ gây khó khăn cho việc sử dụng lại (reuse) cũng như mở rộng ứng dụng.</p>
+
+<h2 id="ba-kiểu-thiết-kế-class">Ba kiểu thiết kế class</h2>
+<p>Để giới thiệu ba kiểu thiết kế class cũng như muốn chỉ ra kiểu thiết kế nào là tốt nhất, mình sử dụng case study như sau để minh hoạ:</p>
+
+<p><em>Trên website bán hàng của cửa hàng Mido, sau khi khách hàng đã thêm một số sản phẩm vào giỏ hàng, thì khi khách hàng nhấn nút “Thanh toán” ở trang thông tin giỏ hàng, website sẽ tạo một đơn đặt hàng và thực hiện thêm hai công việc như sau:</em></p>
+
+<ul>
+  <li><em>Kiểm tra tính hợp lệ của sản phẩm trong giỏ hàng: sản phẩm còn hay hết, …</em></li>
+  <li><em>Áp dụng giá ưu đãi cho sản phẩm nếu đang trong giai đoạn khuyến mãi.</em></li>
+</ul>
+
+<h3 id="1-tôi-biết-cái-tôi-muốn-và-tôi-biết-bạn-làm-điều-đó-như-thế-nào">1. Tôi biết cái tôi muốn và tôi biết bạn làm điều đó như thế nào</h3>
+<p><img src="http://s12.postimg.org/qafbkpai5/example1.png" alt="type1" /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Cart</span>
+  <span class="k">def</span> <span class="nf">checkout</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+    <span class="n">items</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span>
+      <span class="n">order</span><span class="p">.</span><span class="nf">check_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+      <span class="n">order</span><span class="p">.</span><span class="nf">adjust_amount</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Ở cách thiết kế class như thế này, <em>Cart</em> muốn thực hiện thanh toán và nó biết khá nhiều về việc mà <em>Order</em> làm. <em>Cart</em> biết khi thanh toán giỏ hàng thì <em>Order</em> sẽ kiểm tra giỏ hàng và cập nhật giá khuyến mãi. Với việc này thì code của <em>Cart</em> sẽ thay đổi bất cứ lúc nào khi  <em>Order</em> thêm hoặc xoá bớt một số bước trong việc thanh toán. Ta có thể nói <em>Cart</em> lệ thuộc quá nhiều vào <em>Order</em>.</p>
+
+<h3 id="2-tôi-biết-cái-tôi-muốn-và-tôi-biết-bạn-làm-cái-gì">2. Tôi biết cái tôi muốn và tôi biết bạn làm cái gì</h3>
+<p><img src="http://s22.postimg.org/b3y5lmsqp/example1_1.png" alt="type2" /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Cart</span>
+  <span class="k">def</span> <span class="nf">checkout</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+   <span class="n">items</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span>
+     <span class="n">order</span><span class="p">.</span><span class="nf">update_order</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+   <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Order</span>
+  <span class="k">def</span> <span class="nf">update_order</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+   <span class="n">check_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+   <span class="n">adjust_amount</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="c1">#...</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Cách thiết kế thứ hai này là một sự cải tiến của cách thứ nhất, <em>Cart</em> bây giờ không còn biết rõ cách <em>Order</em>  làm việc, nó chỉ biết là <em>Order</em> sẽ cập nhật hoá đơn với những sản phẩm (items) trong giỏ hàng khi thực hiện việc thanh toán. Với việc ít lệ thuộc vào <em>Order</em> hơn thì <em>Cart</em> đã hạn chế được việc bị thay đổi code.
+Nhưng <em>Cart</em> vẫn còn biết một chút về việc <em>Order</em> thực hiện thanh toán ~ <em>Cart</em> vẫn còn lệ thuộc chút ít vào <em>Order</em>. Chúng ta vẫn có thể thiết kế class một cách tốt hơn nữa!</p>
+
+<h3 id="3-tôi-biết-cái-tôi-muốn-và-tôi-tin-chắc-bạn-sẽ-làm-được">3. Tôi biết cái tôi muốn và tôi tin chắc bạn sẽ làm được</h3>
+<p><img src="http://s17.postimg.org/hb1txluq7/example1_2.png" alt="type3" /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Cart</span>
+  <span class="k">def</span> <span class="nf">checkout</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+    <span class="n">order</span><span class="p">.</span><span class="nf">checkout</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Order</span>
+  <span class="k">def</span> <span class="nf">checkout</span><span class="p">(</span><span class="n">cart</span><span class="p">)</span>
+   <span class="n">cart</span><span class="p">.</span><span class="nf">items</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span>
+     <span class="n">check_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+     <span class="n">adjust_amount</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+   <span class="k">end</span>
+  <span class="k">end</span>
+  <span class="c1">#...</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Với cách thiết kế thứ ba này, <em>Cart</em> không biết một thứ gì về cách <em>Order</em> thực hiện công việc thanh toán. <em>Cart</em> chỉ nói cho <em>Order</em> biết rằng nó muốn thanh toán và chỉ gửi chính đối tượng của nó tới <em>Order</em> và tin rằng <em>Order</em> sẽ hoàn tất việc thanh toán.
+Tất cả các tác vụ trong việc thanh toán giờ đã được chuyển hẳn qua cho <em>Order</em>, điều này giúp cho cả hai class dễ tái sử dụng, dễ mở rộng và dễ test.</p>
+
+<h2 id="những-cách-để-áp-dụng-tốt-bí-quyết-này">Những cách để áp dụng tốt bí quyết này</h2>
+
+<h3 id="thay-đổi-mindset-trong-việc-thiết-kế-class">Thay đổi mindset trong việc thiết kế class</h3>
+<p>Mình không biết các bạn được hướng dẫn thiết kế các class như thế nào trong trường đại học, nhưng với riêng mình thì lúc đi học mình được hướng dẫn là hãy đọc mô tả và lấy bút khoanh tròn những danh từ, đa số các danh từ đó sẽ là các class. Hệ quả của việc thiết kế class theo cách này là với những class có sẵn bạn sẽ nhồi nhét những function vào cho chúng, có thể dẫn đến các kết quả xấu như “fat controller, fat model”, vi phạm quy tắc <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">single responsibility</a>.</p>
+
+<p>Vì vậy bạn cần phải thay đổi suy nghĩ từ <em>“mình có những đối tượng như thế này, chúng sẽ làm những chức năng gì?”</em> sang <em>“mình muốn gửi thông điệp (message) này đi thì đối tượng nào sẽ có trách nhiệm trả lời nó?”</em>. Bạn không gửi đi các thông điệp bởi vì những đối tượng có sẵn, nhưng bạn có những đối tượng từ việc gửi đi các thông điệp.</p>
+
+<h3 id="hãy-sử-dụng-sequence-diagram">Hãy sử dụng sequence diagram</h3>
+<p>Hãy sử dụng <a href="https://en.wikipedia.org/wiki/Sequence_diagram">sequence diagram</a> trong việc thiết kế class, nhìn vào đó bạn sẽ có cái nhìn bao quát về các luồng đi của các thông điệp.
+Bạn có thể vẽ trên giấy hay trên máy tính đều được miễn sao cho hiệu quả và thoải mái. Các hình vẽ trong log này dùng <a href="https://www.gliffy.com">Gliffy</a> trên giao diện website để vẽ.</p>
+
+<h2 id="fun-facts">Fun facts</h2>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">wife</span><span class="p">.</span><span class="nf">husband</span><span class="p">.</span><span class="nf">get_key</span><span class="p">.</span><span class="nf">open_box</span><span class="p">.</span><span class="nf">open_wallet</span><span class="p">.</span><span class="nf">get_money</span> <span class="c1"># vợ biết cái vợ muốn và vợ biết chồng làm điều đó như thế nào</span>
+
+<span class="n">wife</span><span class="p">.</span><span class="nf">husband</span><span class="p">.</span><span class="nf">get_money</span> <span class="c1"># vợ biết cái vợ muốn và vợ biết chồng làm cái gì</span>
+
+<span class="no">Husband</span><span class="p">.</span><span class="nf">be_asked_for_money</span><span class="p">(</span><span class="n">wife</span><span class="p">)</span> <span class="c1"># vợ biết cái vợ muốn và vợ tin chắc chồng sẽ làm được</span></code></pre></figure>
+
+<h2 id="tham-khảo">Tham khảo</h2>
+<ul>
+  <li>Các bạn sẽ không hối tiếc khi đọc quyển <a href="http://www.amazon.com/Practical-Object-Oriented-Design-Ruby-Addison-Wesley/dp/0321721330/ref=sr_1_1?ie=UTF8&amp;qid=1433259631&amp;sr=8-1&amp;keywords=practical+object+oriented">Practical Object-Oriented Design in Ruby</a> của Sandi Metz.</li>
+  <li>Một số ý trong log này được lấy ra từ trong quyển sách đã giới thiệu ở bên trên.</li>
+</ul>
+
+<p>Happy coding!</p>
+
+<p><em>tựa đề dễ gây lầm tưởng đây là dạng bài hạt giống cho tâm hồn :3</em></p>
+
+
+            </div>
+            <div class="footer">
+                <div class="footer">
+    <br><hr>
+    <a href="https://github.com/pro-panda" style="color: black">Theme by pro-panda</a>
+</div>
+
+            </div>
+        </div>
+    </div>
+</body>

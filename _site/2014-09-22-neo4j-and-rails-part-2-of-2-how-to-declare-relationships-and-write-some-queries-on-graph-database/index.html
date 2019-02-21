@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Neo4j and Rails, Part 2 of 2: How to declare relationships and write query in Neo4j</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="blog, vumanhcuong, mido, jekyll">
+    <meta name="author" content="vumanhcuong">
+    
+    
+    
+
+    <meta name="description" content="A minimal jekyll theme">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+    <link rel="shortcut-icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+
+    <!-- For Facebook -->
+    <meta property="og:title" content="Neo4j and Rails, Part 2 of 2: How to declare relationships and write query in Neo4j" />
+    <meta property="og:image" content="http://localhost:4000/assets/favicon.ico" />
+    <meta property="og:description" content="A minimal jekyll theme" />
+
+    <!-- For Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Neo4j and Rails, Part 2 of 2: How to declare relationships and write query in Neo4j" />
+    <meta name="twitter:description" content="A minimal jekyll theme" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/favicon.ico" />
+</head>
+
+
+<body>
+    <div class="wrapper">
+        <div class="navbar container">
+    <a id="site-title" class="alignable pull-left" href="http://localhost:4000">mido</a>
+    <ul id="navlist" class="alignable pull-right navbar-ul">
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/about">About</a>
+            /
+        </li>
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/resume.pdf">Resume</a>
+            
+        </li>
+        
+    </ul>
+</div>
+<div style="clear:both"></div>
+
+<hr>
+
+        <div class="page-title">
+            Neo4j and Rails, Part 2 of 2: How to declare relationships and write query in Neo4j
+        </div>
+        <div class="container">
+            <div class="content">
+                <div class="page-subtitle">
+    
+        
+            <b>[</b>
+        
+        <a href="/tags/#neo4j" title="neo4j">neo4j</a>
+        
+            -
+        
+    
+        
+        <a href="/tags/#rails" title="rails">rails</a>
+        
+            <b>]</b>
+        
+    
+</div>
+<br>
+<iframe width="50%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/59131562"></iframe>
+
+<p>Welcome back ! If you missed the <a href="http://vumanhcuongit.github.io/rails/2014/09/16/neo4j-and-rails-how-to-setup-and-deploy---part-1-of-2/">first part</a>, you might want to go back and catch up first.</p>
+
+<p>In previous part, we’ve set up an application with Neo4j and Rails and deployed it to Heroku. From here, we’re going to see the ways to declare relationships and write query in Neo4j.</p>
+
+<h2 id="declare-relationships">Declare Relationships</h2>
+<p>In Neo4j, every Model object is a node so all has_many/has_one method calls begin with declaration of direction.</p>
+
+<p>Those can be:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">:in</code></li>
+  <li><code class="highlighter-rouge">:out</code></li>
+  <li><code class="highlighter-rouge">:both</code></li>
+</ul>
+
+<p>So what’s that ? This image will tell to you clearly.</p>
+
+<p><img src="http://s24.postimg.org/5i15rocud/neo4j_direction.jpg" alt="neo4j direction" /></p>
+
+<p><code class="highlighter-rouge">:both</code> is used when direction is no importance, such as “give me all” or “traverse all” relationships that are either INCOMING or OUTGOING.</p>
+
+<p>Here below are some examples to make it clearer:</p>
+
+<ul>
+  <li>One Service has many Contacts, so there’s an incoming relationship starting from Service.</li>
+  <li>Likewise, one Contact belongs to one Service, so Contact object gets an outgoing relationship.</li>
+</ul>
+
+<p>Now you’ve understood Neo4j directions. Next, I’ll show you how to declare relationship between two models.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Movie</span>
+  <span class="kp">include</span> <span class="no">Neo4j</span><span class="o">::</span><span class="no">ActiveNode</span>
+  <span class="n">property</span> <span class="ss">:name</span>
+
+  <span class="c1"># One Movie has many People</span>
+  <span class="n">has_many</span> <span class="ss">:in</span><span class="p">,</span> <span class="ss">:people</span><span class="p">,</span> <span class="ss">origin: </span><span class="n">movie</span>
+<span class="k">end</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Person</span>
+  <span class="kp">include</span> <span class="no">Neo4j</span><span class="o">::</span><span class="no">ActiveNode</span>
+  <span class="n">property</span> <span class="ss">:fullname</span>
+
+  <span class="c1"># One Actor acts in One Movie</span>
+  <span class="n">has_one</span> <span class="ss">:out</span><span class="p">,</span> <span class="ss">:movie</span><span class="p">,</span> <span class="ss">type: :act_in</span><span class="p">,</span> <span class="ss">model_class: </span><span class="no">Movie</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Definition of terms:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">origin:</code> is optionally but the benefit of this is that changing the <strong>relationship types</strong> declared on Person will not require updates to Movie</li>
+  <li><code class="highlighter-rouge">type:</code> is type of relationship between two Model object. Why do we need it ? it helps distinguish <em>relationships</em> between models. We’re in the graph database so there’re many relationships between two models.
+  <img src="http://s30.postimg.org/oaaq6lu35/type_relationships.jpg" alt="type relationships" /></li>
+  <li><code class="highlighter-rouge">model_class:</code> specifies a target class. It’s required if you have model subclasses:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="k">class</span> <span class="nc">Movie</span>
+    <span class="kp">include</span> <span class="no">Neo4j</span><span class="o">::</span><span class="no">ActiveNode</span>
+    <span class="c1"># Does n't use model_class, it's okay</span>
+    <span class="n">has_many</span> <span class="ss">:in</span><span class="p">,</span> <span class="ss">:people</span>
+    <span class="c1"># Uninitialized Constant CrazyFans</span>
+    <span class="n">has_many</span> <span class="ss">:in</span><span class="p">,</span> <span class="ss">:crazy_fans</span>
+
+    <span class="c1"># Solve it</span>
+    <span class="n">has_many</span> <span class="ss">:in</span><span class="p">,</span> <span class="ss">:crazy_fans</span><span class="p">,</span> <span class="ss">model_class: </span><span class="no">Person</span>
+  <span class="k">end</span>
+  </code></pre></figure>
+
+<h3 id="complex-relationships">Complex relationships:</h3>
+<p>If you have to set up complex relationships, you need to use <a href="https://github.com/neo4jrb/neo4j/wiki/Neo4j%3A%3AActiveRel">ActiveRel</a>. You can read this <a href="https://github.com/neo4jrb/neo4j/wiki/Neo4j%3A%3AActiveRel">intructions</a> to setup this feature. It’s easy, and just a <em>class defining relationship between models</em>.</p>
+
+<p>I just explain some terms that you may get confused with:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">from_class</code> is a class having outgoing relationship.</li>
+  <li><code class="highlighter-rouge">to_class</code> is a class having incoming relationship.</li>
+</ul>
+
+<p>So if I set up ActiveRel for the above example, <code class="highlighter-rouge">from_class</code> is Person and <code class="highlighter-rouge">to_class</code> is Movie.</p>
+
+<h2 id="how-to-write-the-query-on-neo4j">How to write the query on Neo4j</h2>
+<p>You still write some simple queries in <em>ActiveRecord</em> like <code class="highlighter-rouge">Movie.find(24)</code> but  I recommend you to write queries in <a href="http://docs.neo4j.org/chunked/stable/cypher-query-lang.html">Cypher</a> style.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Find movie what has name 'Inception'</span>
+<span class="n">result</span> <span class="o">=</span> <span class="no">Movie</span><span class="p">.</span><span class="nf">query_as</span><span class="p">(</span><span class="ss">:movie</span><span class="p">)</span>
+        <span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">movie: </span><span class="p">{</span><span class="ss">name: </span><span class="s1">'Inception'</span><span class="p">})</span>
+<span class="n">result</span><span class="p">.</span><span class="nf">last</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Movie name: "Inception"&gt;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Find all actors who act in Inception movie</span>
+<span class="n">result</span> <span class="o">=</span> <span class="no">Movie</span><span class="p">.</span><span class="nf">query_as</span><span class="p">(</span><span class="ss">:movie</span><span class="p">)</span>
+        <span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s1">'movie&lt;-[:act_in]-(actor:Person)'</span><span class="p">)</span>
+        <span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">movie: </span><span class="p">{</span><span class="ss">name: </span><span class="s1">'Inception'</span><span class="p">})</span>
+        <span class="p">.</span><span class="nf">pluck</span><span class="p">(</span><span class="ss">:actor</span><span class="p">)</span>
+<span class="n">result</span><span class="p">.</span><span class="nf">last</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Person fullname: "Leonardo Dicaprio"&gt;</span></code></pre></figure>
+
+<p>You need to understand some important things:</p>
+
+<ul>
+  <li>you must use <strong>aliases</strong> for query: <code class="highlighter-rouge">:movie</code>, <code class="highlighter-rouge">:actor</code></li>
+  <li><code class="highlighter-rouge">&lt;-[:act_in]-</code> this’s a <strong>type</strong> of relationship. Direction of the arrow is a <strong>direction of graph</strong> not <strong>relationship</strong> (incoming &amp; outgoing relationship). Don’t get confused.</li>
+</ul>
+
+<p><img src="http://s28.postimg.org/8gllpfk59/graph_direction.jpg" alt="graph direction" /></p>
+
+<p>I mentioned complex relationships so let’s write query for that.</p>
+
+<p>I assume that we have ActiveRel named <strong>Role</strong> what defines role of actor in a movie.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Role</span>
+  <span class="kp">include</span> <span class="no">Neo4j</span><span class="o">::</span><span class="no">ActiveRel</span>
+
+  <span class="n">from_class</span> <span class="no">Person</span>
+  <span class="n">to_class</span> <span class="no">Movie</span>
+  <span class="n">type</span> <span class="s1">'belongs_to'</span>
+
+  <span class="n">property</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">type: </span><span class="no">String</span>
+<span class="k">end</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Find production designers of a film</span>
+<span class="no">Movie</span><span class="p">.</span><span class="nf">query_as</span><span class="p">(</span><span class="ss">:movie</span><span class="p">)</span>
+      <span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s1">'movie&lt;-[rel:belongs_to]-(person:Person)'</span><span class="p">)</span>
+      <span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">rel: </span><span class="p">{</span><span class="ss">name: </span><span class="s1">'Production designer'</span><span class="p">})</span>
+      <span class="p">.</span><span class="nf">pluck</span><span class="p">(</span><span class="ss">:person</span><span class="p">)</span></code></pre></figure>
+
+<p>Bravo, that’s all. I’ve finished the brief introduction about Neo4j and Rails. I hope that you’re interested in Neo4j :). Thanks for your concern and if you have any questions, please don’t hesitate to leave me comments :).</p>
+
+<p>##References</p>
+
+<p><a href="https://github.com/neo4jrb/neo4j/wiki">Neo4jRB’s Wiki</a></p>
+
+<p><a href="http://www.neo4j.org/learn/cypher">Learn Cypher - the Neo4j query language</a></p>
+
+<p><a href="http://blog.benmorgan.io/post/88913410501/getting-started-with-neo4j-ruby-2-1-2-and-rails-4-1-1">Getting Started with Neo4j, Ruby 2.1.2, and Rails 4.1.1</a></p>
+
+
+            </div>
+            <div class="footer">
+                <div class="footer">
+    <br><hr>
+    <a href="https://github.com/pro-panda" style="color: black">Theme by pro-panda</a>
+</div>
+
+            </div>
+        </div>
+    </div>
+</body>

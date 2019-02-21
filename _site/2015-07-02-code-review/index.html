@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Ứng dụng code review trong quá trình phát triển dự án</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="blog, vumanhcuong, mido, jekyll">
+    <meta name="author" content="vumanhcuong">
+    
+    
+    
+
+    <meta name="description" content="A minimal jekyll theme">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+    <link rel="shortcut-icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+
+    <!-- For Facebook -->
+    <meta property="og:title" content="Ứng dụng code review trong quá trình phát triển dự án" />
+    <meta property="og:image" content="http://localhost:4000/assets/favicon.ico" />
+    <meta property="og:description" content="A minimal jekyll theme" />
+
+    <!-- For Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Ứng dụng code review trong quá trình phát triển dự án" />
+    <meta name="twitter:description" content="A minimal jekyll theme" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/favicon.ico" />
+</head>
+
+
+<body>
+    <div class="wrapper">
+        <div class="navbar container">
+    <a id="site-title" class="alignable pull-left" href="http://localhost:4000">mido</a>
+    <ul id="navlist" class="alignable pull-right navbar-ul">
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/about">About</a>
+            /
+        </li>
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/resume.pdf">Resume</a>
+            
+        </li>
+        
+    </ul>
+</div>
+<div style="clear:both"></div>
+
+<hr>
+
+        <div class="page-title">
+            Ứng dụng code review trong quá trình phát triển dự án
+        </div>
+        <div class="container">
+            <div class="content">
+                <div class="page-subtitle">
+    
+        
+            <b>[</b>
+        
+        <a href="/tags/#code review" title="code review">code review</a>
+        
+            -
+        
+    
+        
+        <a href="/tags/#ruby" title="ruby">ruby</a>
+        
+            <b>]</b>
+        
+    
+</div>
+<br>
+<p>Áp dụng code review trong quá trình phát triển dự án sẽ mang lại lợi ích to lớn cho nhóm lập trình cũng như cho từng thành viên trong nhóm. Bài viết này sẽ giới thiệu về:</p>
+
+<ul>
+  <li>
+    <p>Code review là gì ?</p>
+  </li>
+  <li>
+    <p>Lợi ích cũng như khó khăn khi áp dụng code review.</p>
+  </li>
+  <li>
+    <p>Những cách làm cho việc áp dụng code review thêm hiệu quả.</p>
+  </li>
+</ul>
+
+<h2 id="code-review-là-gì-">Code review là gì ?</h2>
+<p>Code review là quá trình mà các lập trình viên xem xét và đánh giá code của một thành viên khác trong nhóm. Đó cũng là quá trình thảo luận với nhau trên các dòng code, qua đó đưa ra những góp ý hữu ích làm cho các dòng code thêm chất lượng hơn.</p>
+
+<p><img src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/github-code-review-example2.png_lvleo69hvs" alt="review code example" /></p>
+
+<p><em>ảnh minh họa. Nguồn: kumar303</em></p>
+
+<h2 id="lợi-ích-của-code-review">Lợi ích của code review</h2>
+<p>–  Ngoài việc viết test, code review cũng là một cách để giảm thiểu số lượng lỗi phát sinh. Đôi khi vì quá quen với những dòng code của chính mình, chúng ta khó phát hiện lỗi hơn là người khác.</p>
+
+<p>–  Thông qua code review, các thành viên trong nhóm sẽ nắm bắt được những gì đang diễn ra trong dự án, biết rõ ai đang phụ trách phần nào và người đó thực hiện việc như thế nào.</p>
+
+<p>–  Được học hỏi thêm nhiều kiến thức hữu ích. Việc được học hỏi đúng nơi (code của mình), đúng thời điểm (đang viết code) giúp chúng ta nhớ lâu hơn.</p>
+
+<p>–  Học cách giảng giải và góp ý cho người khác. Đây cũng là một cơ hội để chúng ta ôn lại &amp; kiểm nghiệm lại kiến thức của mình.</p>
+
+<blockquote>
+  <p>Nếu bạn không thể giải thích đơn giản một vấn đề thì bạn chưa hiểu đủ rõ về nó – <strong>Einstein</strong></p>
+</blockquote>
+
+<p>–  Thông qua việc học hỏi và trao đổi lẫn nhau, chúng ta có thể viết ra được những dòng code chất lượng. Hơn thế nữa, chúng ta có thể áp dụng những cái học được qua các dự án tiếp theo.</p>
+
+<h2 id="khó-khăn-khi-áp-dụng-code-review">Khó khăn khi áp dụng code review</h2>
+<p>Chúng ta sẽ tốn thời gian nhiều hơn bình thường vì phải thực hiện: xem xét code, sữa chữa và cập nhật code.</p>
+
+<p>Theo ý kiến cá nhân của mình thì đây là một sự đánh đổi chấp nhận được, để có những dòng code chất lượng hơn. Vì ngược lại, những dòng code không tốt có thể phát sinh ra lỗi và bạn sẽ tốn nhiều thời gian hơn để sữa những lỗi đó.</p>
+
+<h2 id="những-cách-giúp-việc-thực-hiện-code-review-thêm-hiệu-quả">Những cách giúp việc thực hiện code review thêm hiệu quả</h2>
+
+<h3 id="hãy-tử-tế-vì-một-lập-trình-viên-tử-tế-sẽ">Hãy tử tế, vì một lập trình viên tử tế sẽ:</h3>
+
+<ul>
+  <li>
+    <p>sẵn lòng chia sẻ kiến thức của mình với người khác.</p>
+  </li>
+  <li>
+    <p>đưa ra những góp ý mang tính xây dựng.</p>
+  </li>
+  <li>
+    <p>không lợi dụng code review vào mục đích công kích người khác.</p>
+  </li>
+  <li>
+    <p>luôn muốn tiếp thu những góp ý hữu ích của người khác để hoàn thiện mình hơn.</p>
+  </li>
+  <li>
+    <p>biết trân trọng những đóng góp của các thành viên khách trong nhóm.</p>
+  </li>
+</ul>
+
+<p>Một lập trình viên tử tế sẽ không làm cho người viết code bị tự ái, nội bộ team bị chia rẽ. Dưới đây là góp ý của mình về việc comment code dựa theo các ví dụ:</p>
+
+<blockquote>
+  <p><strong>bad:</strong>
+“Tui đọc trên mạng thấy vậy / Google đi chú, cái này dễ mà” ==&gt; <em>comment quá mông lung, không có tính xây dựng.</em></p>
+
+  <p><strong>good:</strong>
+ “Mình tham khảo dựa trên <a href="http:://google.com">bài viết</a> này, mình nghĩ có thể áp dụng được vào trường hợp trên, @nguyenvana  nghĩ như thế nào ?”</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>bad:</strong>
+“WTH / WTF are you doing? / Sai rồi !”  ==&gt; <em>comment rất thiếu tính xây dựng, không tôn trọng người viết code, làm người khác tự ái, nội bộ team có thể bị chia rẽ.</em></p>
+
+  <p><strong>good:</strong>
+ “Mình thấy phần này bạn làm chưa đúng. Theo như yêu cầu của ticket <a href="http:example.com">#1081</a> thì output phải là … Bạn kiểm tra lại thử xem ?”</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>bad:</strong>
+“Ờ thì tuỳ bạn thôi, thích thì cứ làm vậy đi.” ==&gt; <em>thái độ buông xuôi, không quyết tâm tranh luận để tìm ra điều đúng.</em></p>
+
+  <p><strong>good:</strong>
+“Có lẽ mình diễn giải chưa rõ, ý mình là … @nguyenvana nghĩ như thế nào ?”</p>
+</blockquote>
+
+<h3 id="hãy-mô-tả-một-issue-thật-rõ-ràng">Hãy mô tả một issue thật rõ ràng</h3>
+
+<p>Vì khi đó chúng ta sẽ biết phải làm gì. Thông qua việc mô tả issue rõ ràng, người review code sẽ hiểu rõ hơn về việc chúng ta đang làm, giúp cho việc review code thêm thuận lợi và ít tốn thời gian hơn.</p>
+
+<p><img src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/create-issue.png_faxexbrgem" alt="review code process" /></p>
+
+<p>Để có một phần mô tả issue thật rõ ràng, mình góp ý các bạn nên trả lời 4 câu hỏi sau vào phần mô tả của issue.</p>
+
+<ol>
+  <li>Mục đích của việc tạo issue là gì ?</li>
+  <li>Yêu cầu và mong muốn đạt được của issue là gì ?</li>
+  <li>Cách để xử lý issue như thế nào ?</li>
+  <li>Cần những tham khảo nào ?</li>
+</ol>
+
+<p>Sau đây là một mô tả ví dụ:</p>
+
+<p><img src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/example-issue.png_iwhbo3ibck" alt="example issue" /></p>
+
+<p>Hy vọng các bạn sẽ mạnh dạn áp dụng code review vào những dự án của mình. Mong nhận được những chia sẻ cũng như góp ý của các bạn về bài viết này.
+Cám ơn các bạn.</p>
+
+
+            </div>
+            <div class="footer">
+                <div class="footer">
+    <br><hr>
+    <a href="https://github.com/pro-panda" style="color: black">Theme by pro-panda</a>
+</div>
+
+            </div>
+        </div>
+    </div>
+</body>

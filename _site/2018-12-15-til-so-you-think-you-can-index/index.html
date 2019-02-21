@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>[TIL] #3 So you think you can index?</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="blog, vumanhcuong, mido, jekyll">
+    <meta name="author" content="vumanhcuong">
+    
+    
+    
+
+    <meta name="description" content="A minimal jekyll theme">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+    <link rel="shortcut-icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
+
+    <!-- For Facebook -->
+    <meta property="og:title" content="[TIL] #3 So you think you can index?" />
+    <meta property="og:image" content="http://localhost:4000/assets/favicon.ico" />
+    <meta property="og:description" content="A minimal jekyll theme" />
+
+    <!-- For Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="[TIL] #3 So you think you can index?" />
+    <meta name="twitter:description" content="A minimal jekyll theme" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/favicon.ico" />
+</head>
+
+
+<body>
+    <div class="wrapper">
+        <div class="navbar container">
+    <a id="site-title" class="alignable pull-left" href="http://localhost:4000">mido</a>
+    <ul id="navlist" class="alignable pull-right navbar-ul">
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/about">About</a>
+            /
+        </li>
+        
+        <li class="alignable pull-left navbar-list">
+            <a href="http://localhost:4000/resume.pdf">Resume</a>
+            
+        </li>
+        
+    </ul>
+</div>
+<div style="clear:both"></div>
+
+<hr>
+
+        <div class="page-title">
+            [TIL] #3 So you think you can index?
+        </div>
+        <div class="container">
+            <div class="content">
+                <div class="page-subtitle">
+    
+        
+            <b>[</b>
+        
+        <a href="/tags/#til" title="til">til</a>
+        
+            -
+        
+    
+        
+        <a href="/tags/#postgresql" title="postgresql">postgresql</a>
+        
+            -
+        
+    
+        
+        <a href="/tags/#database" title="database">database</a>
+        
+            <b>]</b>
+        
+    
+</div>
+<br>
+<p>Today I learned more about PostgreSQL indexes.</p>
+
+<p><strong>Theory</strong></p>
+
+<p><em>The theory says, as long as the leftmost column in the query already has a single index or that leftmost column is the leftmost column on some other composite index, then there is no need to have another composite index . The crux: other columns should not be having a lot of data corresponding to that left most column.</em></p>
+
+<p><strong>Index usage of the table</strong></p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql">  <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">pg_stat_all_indexes</span> <span class="k">where</span> <span class="n">relname</span> <span class="o">=</span> <span class="s1">'dummy_table'</span><span class="p">;</span></code></pre></figure>
+
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*Lt3HUbEqtcd5qDGIcEAOrg.png" alt="index usage" /></p>
+
+<p>The space taken by an index:</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">pg_table_size</span><span class="p">(</span><span class="s1">'idempotency_index'</span><span class="p">));</span></code></pre></figure>
+
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*P0aJ2jKy_9KS9Gakzkl7LA.png" alt="index space" /></p>
+
+<p><strong>Percentage of Index used</strong></p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span>
+  <span class="n">relname</span><span class="p">,</span>
+  <span class="mi">100</span> <span class="o">*</span> <span class="n">idx_scan</span> <span class="o">/</span> <span class="p">(</span><span class="n">seq_scan</span> <span class="o">+</span> <span class="n">idx_scan</span><span class="p">)</span> <span class="n">percent_of_times_index_used</span><span class="p">,</span>
+  <span class="n">n_live_tup</span> <span class="n">rows_in_table</span>
+<span class="k">FROM</span>
+  <span class="n">pg_stat_user_tables</span>
+<span class="k">WHERE</span>
+    <span class="n">seq_scan</span> <span class="o">+</span> <span class="n">idx_scan</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="k">ORDER</span> <span class="k">BY</span>
+  <span class="n">n_live_tup</span> <span class="k">DESC</span><span class="p">;</span></code></pre></figure>
+
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*81-iPkrzOu_h-5wmreXNWg.png" alt="percentage of index used" /></p>
+
+<p><strong>Cache hit ratio</strong></p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span>
+  <span class="k">sum</span><span class="p">(</span><span class="n">idx_blks_read</span><span class="p">)</span> <span class="k">as</span> <span class="n">idx_read</span><span class="p">,</span>
+  <span class="k">sum</span><span class="p">(</span><span class="n">idx_blks_hit</span><span class="p">)</span>  <span class="k">as</span> <span class="n">idx_hit</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">idx_blks_hit</span><span class="p">)</span> <span class="o">-</span> <span class="k">sum</span><span class="p">(</span><span class="n">idx_blks_read</span><span class="p">))</span> <span class="o">/</span> <span class="k">sum</span><span class="p">(</span><span class="n">idx_blks_hit</span><span class="p">)</span> <span class="k">as</span> <span class="n">ratio</span>
+<span class="k">FROM</span>
+  <span class="n">pg_statio_user_indexes</span><span class="p">;</span></code></pre></figure>
+
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*PCGTw5ulGzn7KhE_8kwrIQ.png" alt="cache hit ratio" /></p>
+
+<p><strong>Impact Caused By Unused Indexes:</strong></p>
+
+<p><em>It reduces the cache hit ratio since it will occupy some space in cache in the beginning. It’s highly probable that part of some other useful index lies in the disk rather than cache. So when a query comes, it goes and checks in disk, thereby reducing the cache hit ratio.</em></p>
+
+<p><em>Percentage of indexes used will decrease.</em></p>
+
+<h3 id="reference">Reference</h3>
+<p><a href="https://blog.gojekengineering.com/so-you-think-you-can-index-d66869e589dd">https://blog.gojekengineering.com/so-you-think-you-can-index-d66869e589dd</a></p>
+
+
+            </div>
+            <div class="footer">
+                <div class="footer">
+    <br><hr>
+    <a href="https://github.com/pro-panda" style="color: black">Theme by pro-panda</a>
+</div>
+
+            </div>
+        </div>
+    </div>
+</body>
