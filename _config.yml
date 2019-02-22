@@ -21,3 +21,5 @@ navbar:
    link: "about"
  - name: "Resume"
    link: "resume.pdf"
+
+comments: true
