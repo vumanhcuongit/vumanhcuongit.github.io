@@ -1,25 +1,32 @@
-title: mido
-author: vumanhcuong
-subtitle: A minimal jekyll theme
+###########
+# site.title, site.url, site.author.name
 
-url: "https://vumanhcuongit.github.io"
-baseurl: ""
+title:   'Jekyll Minimal Theme'
+author:
+  name:  'Jekyll Minimal Theme Team'
 
-footer_url: "https://github.com/pro-panda"
-footer_text: "Theme by pro-panda"
+## note:
+#  use site.path in your templates to make it work for both protocols e.g. http and https
+#  use site.url only inside the web feed template (e.g. requires full url incl. protocol)
+path: //vumanhcuongit.github.io
+url:  'http://vumanhcuongit.github.io'
 
-profile-picture: assets/avatar.jpg
-favicon_location: assets/favicon.ico
 
-permalink: /:year-:month-:day-:title/
+########
+# more settings
+
+markdown: kramdown
+
 sass:
-    style: compressed
-    sass_dir: css
+  sass_dir: css
+  style:    expanded
 
-navbar:
- - name: "About"
-   link: "about"
- - name: "Resume"
-   link: "resume.pdf"
+permalink: /:title.html
 
-comments: true
+exclude:
+- README.md
+
+
+safe: true
+lsi: false
+

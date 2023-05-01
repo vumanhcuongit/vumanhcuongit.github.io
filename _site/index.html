@@ -1,596 +1,477 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <title>mido</title>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="blog, vumanhcuong, mido, jekyll">
-    <meta name="author" content="vumanhcuong">
-    
-    
-    
-
-    <meta name="description" content="A minimal jekyll theme">
-    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
-    <link rel="shortcut-icon" type="image/ico" href="http://localhost:4000/assets/favicon.ico">
-
-    <!-- For Facebook -->
-    <meta property="og:title" content="mido" />
-    <meta property="og:image" content="http://localhost:4000/assets/favicon.ico" />
-    <meta property="og:description" content="A minimal jekyll theme" />
-
-    <!-- For Twitter -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="mido" />
-    <meta name="twitter:description" content="A minimal jekyll theme" />
-    <meta name="twitter:image" content="http://localhost:4000/assets/favicon.ico" />
+   <meta charset="utf-8">
+   <title>Welcome - Jekyll Minimal Theme</title>
+   <link rel="stylesheet" type="text/css" href="//vumanhcuongit.github.io/css/style.css" >
+   <link rel="alternate" type="application/atom+xml" href="//vumanhcuongit.github.io/feed.xml" title="News Feed">
 </head>
-
-
 <body>
-    <div class="wrapper">
-        <div class="navbar container">
-    <a id="site-title" class="alignable pull-left" href="http://localhost:4000">mido</a>
-    <ul id="navlist" class="alignable pull-right navbar-ul">
-        
-        <li class="alignable pull-left navbar-list">
-            <a href="http://localhost:4000/about">About</a>
-            /
-        </li>
-        
-        <li class="alignable pull-left navbar-list">
-            <a href="http://localhost:4000/resume.pdf">Resume</a>
-            
-        </li>
-        
+
+<div class="container">
+<header class="masthead">
+   <h3 class="masthead-title">
+     <a href="//vumanhcuongit.github.io">Jekyll Minimal Theme</a>
+     <small>
+        &nbsp;&nbsp;&nbsp;<a href="//vumanhcuongit.github.io/archive.html">Archive</a>
+     </small>
+     <small>
+       &nbsp;&nbsp;&nbsp;<a href="//vumanhcuongit.github.io/feed.xml">Feed</a>
+     </small>
+     <small>
+       &nbsp;&nbsp;&nbsp;<a href="https://github.com/henrythemes/jekyll-minimal-theme">About</a>
+     </small>
+   </h3>
+</header>
+
+<div id="content">
+  
+
+<article class='post'>
+  <h1 class='post-title'>
+    <a href="//vumanhcuongit.github.io/welcome.html">
+      Welcome to jekyll-minimal-theme - Another Minimal Jekyll Theme
+    </a>
+  </h1>
+  <div class="post-date">Jan 31, 2015</div>
+  <p>What’s <code class="language-plaintext highlighter-rouge">jekyll-minimal-theme</code>?</p>
+
+<p>It’s another minimal(istic) Jekyll static site generator theme,
+that is, a ready-to-fork template pack. For example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├── _config.yml                               # site configuration
+├── _posts                                    # sample blog posts
+|   ├── 2014-05-05-sportdb-update-v192.md     #   filename format:
+|   ├── 2014-10-10-new-repo-baviria-bayern.md #    =&gt; YEAR-MONTH-DAY-TITLE.MARKUP
+|   ├── 2014-10-21-sql-views.md
+|   ├── 2014-11-11-new-reop-maps.md
+|   └── 2014-12-15-quick-starter-datafiles.md
+├── _layouts                           
+|   ├── default.html                   # master layout template
+|   └── post.html                      # single blog post template
+├── css                               
+|   ├── _settings.scss                 # style settings (e.g. variables)
+|   └── style.scss                     # master style page
+├── feed.xml                           # web feed template (e.g. in atom format)
+├── archive.html                       # archive template
+└── index.html                         # index template
+</code></pre></div></div>
+
+<p>will result in (with <code class="language-plaintext highlighter-rouge">permalink: /:title.html</code>):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└── _site                                # output build folder; site gets generated here
+    ├── css
+    |   └── style.css                    # styles for pages (copied 1:1 as is)
+    ├── sportdb-update-v192.html         # blog post page
+    ├── new-repo-baviria-bayern.html     # another blog post page
+    ├── sql-views.html                   #  ""
+    ├── new-repo-maps.html               #  ""
+    ├── quick-starter-datafiles.html     #  ""
+    ├── feed.xml                         # web feed (e.g. in atom format)
+    ├── archive.html                     # archive page
+    └── index.html                       # index page
+</code></pre></div></div>
+
+<p>To use - delete all sample posts in the <code class="language-plaintext highlighter-rouge">_posts</code> folder and
+change the settings in <code class="language-plaintext highlighter-rouge">_config.yml</code> to use your own <code class="language-plaintext highlighter-rouge">site.title</code>
+and <code class="language-plaintext highlighter-rouge">site.url</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>title:   'Jekyll Minimal Theme'
+url:     'http://drjekyllthemes.github.io/jekyll-minimal-theme'
+author:
+  name:  'Jekyll Minimal Theme Team'
+</code></pre></div></div>
+
+
+</article>
+
+
+
+<article class='post'>
+  <h1 class='post-title'>
+    <a href="//vumanhcuongit.github.io/quick-starter-datafiles.html">
+      Added football.db Quick Starter Datafile Templates - $ sportdb new worldcup
+    </a>
+  </h1>
+  <div class="post-date">Dec 15, 2014</div>
+  <p>The sportdb command line tool now includes a new quick starter
+template command to (auto-)download Datafile scripts from the new
+<a href="https://github.com/openfootball/datafile"><code class="language-plaintext highlighter-rouge">openfootball/datafile</code> registry</a>.</p>
+
+<p>For example, to build yourself a copy of the <code class="language-plaintext highlighter-rouge">worldcup2014.db</code> type:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sportdb new worldcup2014 
+</code></pre></div></div>
+
+<p>The new command will run these steps:</p>
+
+<ul>
+  <li>Step 1: Download <code class="language-plaintext highlighter-rouge">worldcup2014.rb</code> Datafile (from GitHub) to your 
+  working folder as <code class="language-plaintext highlighter-rouge">./Datafile</code></li>
+  <li>Step 2: Run the <code class="language-plaintext highlighter-rouge">sportdb</code> build command
+    <ul>
+      <li>Step 2.a: Download all datasets listed in the Datafile as zip 
+ archives (from GitHub) to <code class="language-plaintext highlighter-rouge">./tmp</code></li>
+      <li>Step 2.b: Create the “empty” database, that is, table structure, 
+ indexes, etc. (schema)</li>
+      <li>Step 2.c: Read in all datasets from the zip archives in <code class="language-plaintext highlighter-rouge">./tmp</code> (no need to unpack)</li>
     </ul>
-</div>
-<div style="clear:both"></div>
+  </li>
+</ul>
 
-<hr>
+<p>That’s it. All done and setup with a single command. Still early and rough.</p>
 
-        <div class="page-title">
-            
-        </div>
-        <div class="container">
-            <div class="content">
-                <br>
+<p>PS: The first quick starter Datafile templates include:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">worldcup</code>   =&gt; All World Cups 1930-2014</li>
+  <li><code class="language-plaintext highlighter-rouge">en</code>         =&gt; English Premier Leagues</li>
+  <li><code class="language-plaintext highlighter-rouge">en2014-15</code>  =&gt; English Premier League 2014/15</li>
+  <li><code class="language-plaintext highlighter-rouge">cl2014-15</code>  =&gt; (European) Champions League 2014/15</li>
+</ul>
+
+</article>
 
 
-    <a href="/2019-02-17-design-notification-system/" class="post-title">
-        Design notification system with Elixir, Postgres and Cachex
+
+<article class='post'>
+  <h1 class='post-title'>
+    <a href="//vumanhcuongit.github.io/new-repo-maps.html">
+      New Repo /maps - Free Full-Screen Interactive Beer Maps w/ Brewery Listings
     </a>
-    <div class="post-details">
-        <b>17 - 02 - 2019</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#elixir">elixir</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#postgresql">postgresql</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#database">database</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+  </h1>
+  <div class="post-date">Nov 11, 2014</div>
+  <p>Added a new repo, that is, <code class="language-plaintext highlighter-rouge">/maps</code> for hosting ‘full-screen’
+interactive beer maps with brewery listings.</p>
 
-    <a href="/2018-12-15-til-so-you-think-you-can-index/" class="post-title">
-        [TIL] #3 So you think you can index?
+<p>See an example <a href="http://openbeer.github.io/maps/at">beer map for Austria</a> (~200 breweries n brewpubs)
+live or <a href="https://github.com/openbeer/maps">check the source using</a> the mapbox.js mapping library.</p>
+
+</article>
+
+
+
+<article class='post'>
+  <h1 class='post-title'>
+    <a href="//vumanhcuongit.github.io/sql-views.html">
+      football.db SQL Queries Made Easy (Thanks to Views)
     </a>
-    <div class="post-details">
-        <b>15 - 12 - 2018</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#til">til</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#postgresql">postgresql</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#database">database</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+  </h1>
+  <div class="post-date">Oct 21, 2014</div>
+  <p>First thanks to Joe Kampschmidt for getting started w/
+some <a href="http://openfootball.github.io/docs/sql-queries-intro.html">SQL queries examples</a>.</p>
 
-    <a href="/2018-06-02-til-understand-things/" class="post-title">
-        [TIL] #2
+<p>Added some SQL views to make it easier to query the <code class="language-plaintext highlighter-rouge">football.db</code>.
+Example - List World Cup Brazil 2014 Games:</p>
+
+<p>Before (Table Edition):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT t1.title, 
+       t2.title, 
+       g.* 
+  FROM games g 
+       LEFT OUTER JOIN teams t1 ON t1.id = g.team1_id 
+       LEFT OUTER JOIN teams t2 ON t2.id = g.team2_id 
+       INNER JOIN rounds r ON r.id = g.round_id 
+       INNER JOIN events e ON e.id = r.event_id 
+ WHERE e.key = 'world.2014' 
+</code></pre></div></div>
+
+<p>After (View Edition):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT * 
+  FROM events_games_list 
+ WHERE e.key = 'world.2014'; 
+</code></pre></div></div>
+
+<p><a href="https://github.com/openfootball/schema.sql">More views</a> include:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">teams_list</code></li>
+  <li><code class="language-plaintext highlighter-rouge">games_list</code></li>
+  <li><code class="language-plaintext highlighter-rouge">events_list</code></li>
+  <li><code class="language-plaintext highlighter-rouge">events_teams_list</code></li>
+  <li><code class="language-plaintext highlighter-rouge">events_games_list</code></li>
+  <li><code class="language-plaintext highlighter-rouge">events_rounds_list</code></li>
+  <li><code class="language-plaintext highlighter-rouge">events_groups_list</code></li>
+</ul>
+
+</article>
+
+
+
+<article class='post'>
+  <h1 class='post-title'>
+    <a href="//vumanhcuongit.github.io/new-repo-baviria-bayern.html">
+      New Repo - Bayern (Baviria) - incl. European Beer Stars 2011, 2012, 2013
     </a>
-    <div class="post-details">
-        <b>02 - 06 - 2018</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#til">til</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#ruby">ruby</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+  </h1>
+  <div class="post-date">Oct 14, 2014</div>
+  <p>Moved all beer, brewpub n brewery data for Bayern
+(Baviria) to its own repo, that is, <a href="https://github.com/openbeer/by-bayern"><code class="language-plaintext highlighter-rouge">openbeer/by-bayern</code></a>.</p>
 
-    <a href="/2016-05-27-til-conversion-in-ruby/" class="post-title">
-        [TIL] #1 Chuyển đổi kiểu dữ liệu tường minh và không tường minh trong Ruby
+<p>Also includes all European Beer Star winners from Bayern
+(Baviria) for the years 2011, 2012 and 2013. Cheers. Prost.</p>
+
+
+</article>
+
+
+
+<article class='post'>
+  <h1 class='post-title'>
+    <a href="//vumanhcuongit.github.io/sportdb-update-v192.html">
+      sportdb Update v1.9.2 - Added Match Goals Reader e.g. [Messi 3', 45+1']
     </a>
-    <div class="post-details">
-        <b>27 - 05 - 2016</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#til">til</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#ruby">ruby</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+  </h1>
+  <div class="post-date">May 5, 2014</div>
+  <p>What’s news? sportdb command line updates:</p>
 
-    <a href="/2016-01-26-take-screenshot-when-cucumber-test-failed/" class="post-title">
-        Take a screenshot any time Cucumber's scenario failed on CircleCI
+<p>The match schedule reader now will add goals (plus auto-add missing 
+players). All still a little rough but working without any (extra) configuration. Example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(1) Thu Jun/12 17:00   Brazil 3-1 (1-1) Croatia       @ Arena de São Paulo, São Paulo
+        [Neymar 29', 71' (pen.) Oscar 90+1';  Marcelo 11' (o.g.)] 
+</code></pre></div></div>
+
+<p>The reader will add four goal records (see the table goals w/ fields such as 
+<code class="language-plaintext highlighter-rouge">player_id</code>, <code class="language-plaintext highlighter-rouge">team_id</code>, <code class="language-plaintext highlighter-rouge">minute</code>, <code class="language-plaintext highlighter-rouge">offset</code>, <code class="language-plaintext highlighter-rouge">score1</code>, <code class="language-plaintext highlighter-rouge">score2</code> etc.):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 |   Marcelo  11'   (o.g.)   1-0   Croatia (Team 2) 
+2 |   Neymar   29'            1-1   Brazil  (Team 1) 
+3 |   Neymar   71'   (pen.)   2-1   Brazil  (Team 1) 
+4 |   Oscar    90'+1'         3-1   Brazil  (Team 1)
+</code></pre></div></div>
+
+
+</article>
+
+
+
+<article class='post'>
+  <h1 class='post-title'>
+    <a href="//vumanhcuongit.github.io/test-styles.html">
+      Test Theme Styles
     </a>
-    <div class="post-details">
-        <b>26 - 01 - 2016</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#cucumber">cucumber</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#screenshot">screenshot</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#circleci">circleci</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+  </h1>
+  <div class="post-date">Apr 1, 2014</div>
+  <h1 id="heading-1">Heading 1</h1>
 
-    <a href="/2015-07-03-i-know-what-i-want-and-i-trust-you-to-do-your-part/" class="post-title">
-        Tôi biết cái tôi muốn và tôi tin chắc bạn sẽ làm được
-    </a>
-    <div class="post-details">
-        <b>03 - 07 - 2015</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#code review">code review</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#ruby">ruby</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+<h2 id="heading-2">Heading 2</h2>
 
-    <a href="/2015-07-02-code-review/" class="post-title">
-        Ứng dụng code review trong quá trình phát triển dự án
-    </a>
-    <div class="post-details">
-        <b>02 - 07 - 2015</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#code review">code review</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#ruby">ruby</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+<h3 id="heading-3">Heading 3</h3>
 
-    <a href="/2014-10-22-satori-2/" class="post-title">
-        Satori #2
-    </a>
-    <div class="post-details">
-        <b>22 - 10 - 2014</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#satori">satori</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#ruby">ruby</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+<h4 id="heading-4">Heading 4</h4>
 
-    <a href="/2014-10-08-satori-1/" class="post-title">
-        Satori #1
-    </a>
-    <div class="post-details">
-        <b>08 - 10 - 2014</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#ruby">ruby</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#satori">satori</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+<h5 id="heading-5">Heading 5</h5>
 
-    <a href="/2014-09-22-neo4j-and-rails-part-2-of-2-how-to-declare-relationships-and-write-some-queries-on-graph-database/" class="post-title">
-        Neo4j and Rails, Part 2 of 2: How to declare relationships and write query in Neo4j
-    </a>
-    <div class="post-details">
-        <b>22 - 09 - 2014</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#neo4j">neo4j</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#rails">rails</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+<h6 id="heading-6">Heading 6</h6>
 
-    <a href="/2014-09-16-neo4j-and-rails-how-to-setup-and-deploy-part-1-of-2/" class="post-title">
-        Neo4j and Rails, Part 1 of 2: How to setup an application and deploy it to Heroku
-    </a>
-    <div class="post-details">
-        <b>16 - 09 - 2014</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#neo4j">neo4j</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#rails">rails</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+<p><strong>Strange Case of Dr Jekyll and Mr Hyde</strong> is the original
+title of a novella written by the Scottish author Robert Louis Stevenson
+that was first published in 1886. The work is commonly known today as
+<strong>The Strange Case of Dr. Jekyll and Mr. Hyde</strong>,
+<strong>Dr. Jekyll and Mr. Hyde</strong>, or simply
+<strong>Jekyll &amp; Hyde</strong>.
+It is about a London lawyer named Gabriel John Utterson
+who investigates strange occurrences between
+his old friend, Dr. Henry Jekyll, and the evil Edward Hyde.</p>
 
-    <a href="/2014-09-10-handling-exceptions-in-rails/" class="post-title">
-        Handling Exceptions in Rails
-    </a>
-    <div class="post-details">
-        <b>10 - 09 - 2014</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#rails">rails</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+<p>The work is commonly associated with the rare mental condition often called
+“split personality”, referred to in psychiatry as dissociative identity disorder,
+where within the same body there exists more than one distinct personality.
+In this case, there are two personalities within Dr Jekyll, one apparently good
+and the other evil. The novella’s impact is such that it has become a part of
+the language, with the very phrase “Jekyll and Hyde” coming to mean a person
+who is vastly different in moral character from one situation to the next.</p>
 
-    <a href="/2014-08-27-ruby-methods-all-vs-any/" class="post-title">
-        Ruby methods: all? vs any?
-    </a>
-    <div class="post-details">
-        <b>27 - 08 - 2014</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#ruby">ruby</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+<p><strong>Inspiration and writing</strong></p>
 
-    <a href="/2014-08-27-rspec-allow-vs-expect/" class="post-title">
-        RSpec: allow vs expect
-    </a>
-    <div class="post-details">
-        <b>27 - 08 - 2014</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#ruby">ruby</a>
-            
-                ,
-            
-        
-            
-            <a href="/tags/#unit test">unit test</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+<p>Robert Louis Stevenson Stevenson had long been intrigued by the idea…</p>
 
-    <a href="/2014-08-27-prax-for-ror-in-ubuntu/" class="post-title">
-        Prax for ROR in Ubuntu
-    </a>
-    <div class="post-details">
-        <b>27 - 08 - 2014</b>
-        <br>
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+<p><strong>Plot</strong></p>
 
-    <a href="/2014-08-27-lite-markdown-cheat-sheet/" class="post-title">
-        Lite Markdown cheat sheet
-    </a>
-    <div class="post-details">
-        <b>27 - 08 - 2014</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#markdown">markdown</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+<p>John Utterson, a lawyer, is on his weekly walk with his relative…</p>
 
-    <a href="/2014-08-27-how-to-truncate-a-string-thats-markdown-format/" class="post-title">
-        How to truncate a string that's Markdown format
-    </a>
-    <div class="post-details">
-        <b>27 - 08 - 2014</b>
-        <br>
-        
-            
-                <b>[</b>
-            
-            <a href="/tags/#markdown">markdown</a>
-            
-                <b>]</b>
-            
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
-        <hr><br>
-    
+<h3 id="lists">Lists</h3>
 
-    <a href="/2014-08-27-hello-world/" class="post-title">
-        Hello World
-    </a>
-    <div class="post-details">
-        <b>27 - 08 - 2014</b>
-        <br>
-        
-    </div>
-    <br>
-    <div class="post-snippet">
-        
-    </div>
-    <br><br>
-    
+<p>Table of Contents:</p>
 
-            </div>
-            <div class="footer">
-                <div class="footer">
-    <br><hr>
-    <a href="https://github.com/pro-panda" style="color: black">Theme by pro-panda</a>
+<ol>
+  <li>Inspiration and writing</li>
+  <li>Plot</li>
+  <li>Characters
+    <ol>
+      <li>Dr. Henry Jekyll/Edward Hyde</li>
+      <li>Gabriel John Utterson</li>
+      <li>Richard Enfield</li>
+      <li>Dr. Hastie Lanyon</li>
+      <li>Mr. Poole</li>
+      <li>Inspector Newcomen</li>
+      <li>Sir Danvers Carew, MP</li>
+      <li>Maid</li>
+    </ol>
+  </li>
+  <li>Analysis</li>
+  <li>Reception</li>
+  <li>Adaptations</li>
+  <li>References</li>
+  <li>Further reading</li>
+</ol>
+
+<p>Categories:</p>
+
+<ul>
+  <li>Short stories by Robert Louis Stevenson</li>
+  <li>1886 short stories</li>
+  <li>Novellas</li>
+  <li>Novels set in London</li>
+  <li>Gothic novels</li>
+  <li>Victorian novels</li>
+  <li>Works based on the Faust legend</li>
+  <li>Dissociative identity disorder in fiction</li>
+</ul>
+
+<p>Robert Louis Stevenson:</p>
+
+<ul>
+  <li>Books
+    <ul>
+      <li>An Inland Voyage (1878)</li>
+      <li>Travels with a Donkey in the Cévennes (1879)</li>
+      <li>The Silverado Squatters (1883)</li>
+      <li>Memories and Portraits (1887)</li>
+      <li>Across the Plains (1892)</li>
+      <li>Eight Years of Trouble in Samoa (1892)</li>
+      <li>The Amateur Emigrant (1895)</li>
+    </ul>
+  </li>
+  <li>Novels
+    <ul>
+      <li>Treasure Island (1883)</li>
+      <li>Prince Otto (1885)</li>
+      <li>Kidnapped (1886)</li>
+      <li>The Black Arrow: A Tale of the Two Roses (1888)</li>
+      <li>The Master of Ballantrae (1889)</li>
+      <li>The Wrong Box (1889)</li>
+      <li>The Wrecker (1892)</li>
+      <li>Catriona (1893)</li>
+      <li>The Ebb-Tide (1894)</li>
+      <li>Weir of Hermiston (1896)</li>
+      <li>St. Ives (1897)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="blockquotes">Blockquotes</h3>
+
+<p>Biographer Graham Balfour quoted Stevenson’s wife Fanny Stevenson:</p>
+
+<blockquote>
+  <p>In the small hours of one morning, […] I was awakened by cries of horror
+from Louis. Thinking he had a nightmare, I awakened him. He said angrily:
+“Why did you wake me? I was dreaming a fine bogey tale.”
+I had awakened him at the first transformation scene.</p>
+</blockquote>
+
+<p>Quotes from “The Strange Case of Dr. Jekyll and Mr. Hyde”:</p>
+
+<blockquote>
+  <p>Quiet minds cannot be perplexed or frightened but go on in fortune
+or misfortune at their own private pace, like a clock during a thunderstorm.</p>
+
+  <p>– Robert Louis Stevenson</p>
+</blockquote>
+
+<blockquote>
+  <p>It is one thing to mortify curiosity, another to conquer it.</p>
+
+  <p>– Robert Louis Stevenson</p>
+</blockquote>
+
+<blockquote>
+  <p>If I am the chief of sinners, I am the chief of sufferers also.</p>
+
+  <p>– Robert Louis Stevenson</p>
+</blockquote>
+
+<h3 id="tables">Tables</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Author</td>
+      <td>Robert Louis Stevenson</td>
+    </tr>
+    <tr>
+      <td>Original title</td>
+      <td>Strange Case Of Dr Jekyll And Mr Hyde</td>
+    </tr>
+    <tr>
+      <td>Country</td>
+      <td>United Kingdom</td>
+    </tr>
+    <tr>
+      <td>Language</td>
+      <td>English</td>
+    </tr>
+    <tr>
+      <td>Series</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>Genre</td>
+      <td>Drama, Horror, Thriller, Gothic, Science fiction</td>
+    </tr>
+    <tr>
+      <td>Publisher</td>
+      <td>Longmans, Green &amp; Co.</td>
+    </tr>
+    <tr>
+      <td>Publication date</td>
+      <td>5 January 1886</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="code-n-code-blocks">Code n Code Blocks</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">white-space</code> CSS property is used to to describe
+how white spaces inside the element is handled. Example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>white-space: normal
+white-space: nowrap
+white-space: pre
+white-space: pre-wrap
+white-space: pre-line
+
+white-space: inherit
+</code></pre></div></div>
+
+<p>Many CSS properties take <code class="language-plaintext highlighter-rouge">&lt;length&gt;</code> values,
+such as <code class="language-plaintext highlighter-rouge">width</code>, <code class="language-plaintext highlighter-rouge">margin</code>,  <code class="language-plaintext highlighter-rouge">padding</code>, <code class="language-plaintext highlighter-rouge">font-size</code>, <code class="language-plaintext highlighter-rouge">border-width</code>, <code class="language-plaintext highlighter-rouge">text-shadow</code>, …</p>
+
+<p>Some specific examples:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">1in</code> is always <code class="language-plaintext highlighter-rouge">96px</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">3pt</code> is always <code class="language-plaintext highlighter-rouge">4px</code>,</li>
+  <li><code class="language-plaintext highlighter-rouge">25.4mm</code> is always <code class="language-plaintext highlighter-rouge">96px</code>.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>html { font-size: 62.5%; } 
+body { font-size: 1.4rem; } /* =14px */
+h1   { font-size: 2.4rem; } /* =24px */
+</code></pre></div></div>
+
+
+</article>
+
+
+
+
 </div>
 
-            </div>
-        </div>
-    </div>
+</div><!-- .container -->
 </body>
+</html>

@@ -1,8 +1,8 @@
-source 'https://rubygems.org'
+# frozen_string_literal: true
 
-gem 'jekyll', '~> 3.8'
+source "https://rubygems.org"
 
-group :jekyll_plugins do
-  gem 'jekyll-paginate', '~> 1.1'
-  gem 'jekyll-gist'
-end
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+
+gem "jekyll", "~> 4.0"
+# gem "rails"
