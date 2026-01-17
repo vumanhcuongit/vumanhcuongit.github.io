@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cepub - Save Articles to Clean EPUB</title>
+  <meta name="description" content="Auto-discover related articles and convert to clean EPUB. Strips ads, navbars, headers, footers, and clutter automatically.">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #5c6bc0;
+      --primary-dark: #3f51b5;
+      --text: #1a202c;
+      --text-light: #4a5568;
+      --bg: #ffffff;
+      --bg-alt: #f7fafc;
+      --border: #e2e8f0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo img {
+      width: 32px;
+      height: 32px;
+    }
+
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .hero .tagline {
+      font-size: 1.25rem;
+      color: var(--text-light);
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--border);
+      color: var(--text);
+      margin-left: 12px;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: transparent;
+    }
+
+    /* Features */
+    .features {
+      padding: 80px 0;
+      background: var(--bg-alt);
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 48px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .feature-card {
+      background: var(--bg);
+      padding: 32px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .feature-card .icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* How it works */
+    .how-it-works {
+      padding: 80px 0;
+    }
+
+    .how-it-works h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 48px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+      text-align: center;
+    }
+
+    .step {
+      padding: 24px;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+    }
+
+    .step h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Screenshots */
+    .screenshots {
+      padding: 80px 0;
+      background: var(--bg-alt);
+    }
+
+    .screenshots h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 48px;
+    }
+
+    .screenshot-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .screenshot-grid img {
+      max-width: 100%;
+      width: 800px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      margin: 0 12px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero .tagline {
+        font-size: 1.1rem;
+      }
+
+      .btn {
+        display: block;
+        margin-bottom: 12px;
+      }
+
+      .btn-outline {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo">
+          <img src="icon.png" alt="Cepub">
+          Cepub
+        </a>
+        <div>
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="privacy.html">Privacy</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Save Articles to Clean EPUB</h1>
+      <p class="tagline">Auto-discover related articles. Remove clutter. Read anywhere on your favorite e-reader.</p>
+      <a href="#" class="btn" id="install-btn">Install from Chrome Web Store</a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2>Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="icon">🔍</div>
+          <h3>Auto-Discover Articles</h3>
+          <p>Start from any article and Cepub finds related content automatically. Detects tutorial series, author posts, and more. Convert up to 50 articles at once.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🧹</div>
+          <h3>Clean Content Extraction</h3>
+          <p>Strips away ads, navigation bars, headers, footers, sidebars, popups, and comments. Keeps only the article text, images, and formatting you want.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">📚</div>
+          <h3>EPUB Export</h3>
+          <p>Generate standard EPUB files that work with any e-reader app - Kindle, Apple Books, Kobo, and more. Perfect for offline reading.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Browse to Any Article</h3>
+          <p>Navigate to a blog post, tutorial, or article you want to save.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Click Auto-Discover</h3>
+          <p>Cepub finds related articles on the same site and shows you the results.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Generate EPUB</h3>
+          <p>Select articles, configure options, and download your clean ebook.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots -->
+  <section class="screenshots" id="screenshots">
+    <div class="container">
+      <h2>See It In Action</h2>
+      <div class="screenshot-grid">
+        <img src="screenshot-3.png" alt="Main extension interface with Add Current Page button">
+        <img src="screenshot-2.png" alt="Auto-discover feature finding related articles">
+        <img src="screenshot-5.png" alt="EPUB configuration options">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Cepub. Open source and free to use.</p>
+      <p>
+        <a href="#">Chrome Web Store</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
